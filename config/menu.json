@@ -5,20 +5,16 @@
       "url": "/"
     },
     {
-      "name": "Blog",
+      "name": "Visi dan Misi",
       "url": "/blogs"
     },
     {
-      "name": "Pricing",
+      "name": "Makna Logo",
       "url": "/pricing"
     },
     {
-      "name": "Contact",
+      "name": "Struktur",
       "url": "/contact"
-    },
-    {
-      "name": "FAQ",
-      "url": "/faq"
     }
   ],
   "footer": [

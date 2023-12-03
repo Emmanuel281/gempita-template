@@ -33,17 +33,6 @@ feature:
 
 # services
 services:
-  - title: "It is the most advanced digital marketing and it company."
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat. consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat."
-    images:
-      - "/images/530x356.svg"
-      - "/images/530x356.svg"
-      - "/images/530x356.svg"
-    button:
-      enable: true
-      label: Check it out
-      link: /contact
-
   - title: "MUKADIMAH"
     content: "Batasan pemahaman tentang “milenial” ada dua. Pertama, generasi berusia 24 – 39 tahun.Kedua,generasi melek teknologi. Dalam terminologi yang lebih luas: Generasi modern."
     images:

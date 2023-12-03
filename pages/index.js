@@ -8,6 +8,9 @@ import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import { getListPage } from "../lib/contentParser";
+import BlogPagination, {
+  getStaticProps as getStaticPropsBlog,
+} from "./blogs/page/[slug]";
 
 const Home = ({ frontmatter }) => {
   const { banner, feature, services, workflow, call_to_action } = frontmatter;
@@ -41,7 +44,6 @@ const Home = ({ frontmatter }) => {
           </div>
         </div>
       </section>
-
       {/* Features */}
       {/* <section className="section bg-theme-light">
         <div className="container">
@@ -72,7 +74,6 @@ const Home = ({ frontmatter }) => {
           </div>
         </div>
       </section> */}
-
       {/* services */}
       {services.map((service, index) => {
         const isOdd = index % 2 > 0;
@@ -152,7 +153,6 @@ const Home = ({ frontmatter }) => {
           height={296}
         />
       </section> */}
-
       {/* Cta */}
       {/* <Cta cta={call_to_action} /> */}
     </Base>
