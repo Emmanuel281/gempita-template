@@ -5,7 +5,15 @@
       "url": "/"
     },
     {
-      "name": "Visi dan Misi",
+      "name": "Berita",
+      "url": "/blogs"
+    },
+    {
+      "name": "Acara",
+      "url": "/blogs"
+    },
+    {
+      "name": "Youtube",
       "url": "/blogs"
     },
     {
