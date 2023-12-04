@@ -23,7 +23,8 @@ const Home = ({ frontmatter }) => {
         className="section pb-[50px]"
         style={{
           backgroundImage: `url(${banner.backgroundimage})`,
-          height: 400,
+          backgroundSize: "100% 100%",
+          height: 600,
         }}
       >
         <div className="container">

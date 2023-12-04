@@ -23,53 +23,53 @@
     {
       "name": "Struktur",
       "url": "/struktur"
+    },
+    {
+      "name": "Visi dan Misi",
+      "url": "/visimisi"
     }
   ],
   "footer": [
     {
-      "name": "Company",
+      "name": "Tentang Kami",
       "menu": [
         {
-          "text": "Pricing",
-          "url": "/pricing"
+          "text": "Makna Logo",
+          "url": "/maknalogo"
         },
         {
-          "text": "Quick Start",
-          "url": "#"
+          "text": "Struktur",
+          "url": "/struktur"
+        },
+        {
+          "text": "Visi dan Misi",
+          "url": "/visimisi"
         }
       ]
     },
     {
-      "name": "Product",
+      "name": "Informasi",
       "menu": [
         {
-          "text": "Features",
-          "url": "#"
+          "text": "Berita",
+          "url": "blogs"
         },
         {
-          "text": "Platform",
-          "url": "#"
+          "text": "Acara",
+          "url": "/acara"
         },
         {
-          "text": "Pricing",
-          "url": "/pricing"
+          "text": "Youtube",
+          "url": "/youtube"
         }
       ]
     },
     {
-      "name": "Support",
+      "name": "Pendukung",
       "menu": [
         {
-          "text": "FAQ",
-          "url": "/faq"
-        },
-        {
-          "text": "Privacy Policy",
-          "url": "#"
-        },
-        {
-          "text": "Terms & Conditions",
-          "url": "#"
+          "text": "Kebijakan Privasi",
+          "url": "/privacypolicy"
         }
       ]
     }

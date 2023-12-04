@@ -5,6 +5,9 @@ import Default from "@layouts/Default";
 import Faq from "@layouts/Faq";
 import Pricing from "@layouts/Pricing";
 import Maknalogo from "@layouts/Maknalogo";
+import Struktur from "@layouts/Struktur";
+import Visidanmisi from "@layouts/Visidanmisi";
+import Privacypolicies from "@layouts/Privacypolicy";
 import { getRegularPage, getSinglePage } from "@lib/contentParser";
 
 // for all regular pages
@@ -32,6 +35,12 @@ const RegularPages = ({ data }) => {
         <Faq data={data} />
       ) : layout === "maknalogo" ? (
         <Maknalogo data={data} />
+      ) : layout === "struktur" ? (
+        <Struktur data={data} />
+      ) : layout === "visidanmisi" ? (
+        <Visidanmisi data={data} />
+      ) : layout === "privacypolicy" ? (
+        <Privacypolicies data={data} />
       ) : (
         <Default data={data} />
       )}

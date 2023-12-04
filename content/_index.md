@@ -3,7 +3,7 @@ banner:
   title: Gempita
   content: Gerakan Milenial Pencinta Tanah Air
   image: /images/banner-art.svg
-  backgroundimage: https://placehold.co/600x400
+  backgroundimage: https://placehold.co/2000x600
   button:
     label: "Contact Us"
     link: "/contact"
