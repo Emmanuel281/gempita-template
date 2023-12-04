@@ -14,10 +14,10 @@ const Struktur = ({ data }) => {
         {visidanmisi.map((item, i) => {
           return (
             <div className="mt-10">
-              {markdownify(item.title, "h4", "")}
+              {markdownify(item.title, "h4", "text-center")}
               <br></br>
               {item?.desc.map((desc, index) =>
-                markdownify(desc, "h6", " font-normal")
+                markdownify(desc, "h6", "text-center font-normal")
               )}
             </div>
           );
