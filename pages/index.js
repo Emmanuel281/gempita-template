@@ -10,7 +10,7 @@ import "swiper/swiper.min.css";
 import { getListPage } from "../lib/contentParser";
 import BlogPagination, {
   getStaticProps as getStaticPropsBlog,
-} from "./blogs/page/[slug]";
+} from "./berita/page/[slug]";
 
 const Home = ({ frontmatter }) => {
   const { banner, feature, services, workflow, call_to_action } = frontmatter;

@@ -10,7 +10,7 @@ const Logo = ({ src }) => {
   return (
     <Link
       href={base_url}
-      className="navbar-brand block py-1  "
+      className="navbar-brand flex py-1  "
       style={{
         height: logo_height.replace("px", "") + "px",
         width: logo_width.replace("px", "") + "px",
@@ -29,6 +29,7 @@ const Logo = ({ src }) => {
       ) : (
         title
       )}
+      <h3 className="pl-2 text-center">{logo_text}</h3>
     </Link>
   );
 };
