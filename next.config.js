@@ -5,7 +5,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domain: ["placehold.co"],
+    domains: ["placehold.co", "gempita.gnusa.id"],
   },
 };
 

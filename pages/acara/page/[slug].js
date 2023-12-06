@@ -9,19 +9,31 @@ const { blog_folder } = config.settings;
 
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
+  const { frontmatter, content, contentapi } = postIndex;
   const indexOfLastPost = currentPage * pagination;
   const indexOfFirstPost = indexOfLastPost - pagination;
-  const totalPages = Math.ceil(posts.length / pagination);
+  const totalPages = Math.ceil(contentapi.data.length / pagination);
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const { frontmatter, content } = postIndex;
   const { title } = frontmatter;
+  console.warn("contentapi");
+  console.warn(contentapi);
+  // console.warn("postIndex");
+  // console.warn(postIndex);
+  // console.warn("posts");
+  // console.warn(posts);
+  // console.warn("currentPage");
+  // console.warn(currentPage);
+  // console.warn("pagination");
+  // console.warn(pagination);
+  // console.warn("currentPosts");
+  // console.warn(currentPosts);
 
   return (
     <Base title={title}>
       <section className="section">
         <div className="container">
           {markdownify(title, "h1", "h1 text-center font-normal text-[56px]")}
-          <Posts posts={currentPosts} />
+          <Posts posts={contentapi.data} />
           <Pagination
             section={blog_folder}
             totalPages={totalPages}
@@ -65,7 +77,10 @@ export const getStaticProps = async ({ params }) => {
     (post1, post2) =>
       new Date(post2.frontmatter.date) - new Date(post1.frontmatter.date)
   );
-  const postIndex = await getListPage(`content/${blog_folder}/_index.md`);
+  const postIndex = await getListPage(
+    `content/${blog_folder}/_index.md`,
+    `http://fanbase.gnusa.id/service/event-public?start=1&count=20`
+  );
   const mdxContent = await parseMDX(postIndex.content);
 
   return {

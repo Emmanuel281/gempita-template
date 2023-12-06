@@ -2,7 +2,7 @@
   "site": {
     "title": "Gempita",
     "base_url": "/",
-    "favicon": "/images/favicon.png",
+    "favicon": "/images/logo.png",
     "logo": "/images/logo.png",
     "logo_width": "48",
     "logo_height": "48",
@@ -10,7 +10,7 @@
   },
 
   "settings": {
-    "pagination": 4,
+    "pagination": 8,
     "summary_length": 200,
     "blog_folder": "blogs"
   },
