@@ -107,7 +107,7 @@ const Posts = ({ posts, type }) => {
 
             <h5 className="mb-4 mt-4 text-text">
               {plainify(
-                posts[0].description?.slice(0, Number(summary_length)),
+                posts[0].description?.slice(0, Number(summary_length)).concat("..."),
                 "div"
               )}
             </h5>
@@ -123,25 +123,34 @@ const Posts = ({ posts, type }) => {
       </div>
       {posts.slice(1).map((post, i) => (
         <div key={`key-${i}`} className="col-12 mb-8 sm:col-6 lg:col-4">
-          {posts[0].img._img0 ? (
-            <Image
-              className="h-auto w-full rounded-lg"
-              src={post.img._img0}
-              alt={"/images/blog-1.jpg"}
-              width={540}
-              height={227}
-              priority={true}
-            />
-          ) : (
-            <Image
-              className="h-auto w-full rounded-lg"
-              src={"/images/blog-1.jpg"}
-              alt={"/images/blog-1.jpg"}
-              width={540}
-              height={227}
-              priority={true}
-            />
-          )}
+          {posts.img._img0 ? (
+              <Image
+                className="h-auto w-full rounded-lg"
+                src={posts[0].img._img0}
+                alt={"/images/blog-1.jpg"}
+                width={540}
+                height={227}
+                priority={true}
+              />
+            ) : posts[0].img ? (
+              <Image
+                className="h-auto w-full rounded-lg"
+                src={posts[0].img}
+                alt={"/images/blog-1.jpg"}
+                width={540}
+                height={227}
+                priority={true}
+              />
+            ) : (
+              <Image
+                className="h-auto w-full rounded-lg"
+                src={"/images/blog-1.jpg"}
+                alt={"/images/blog-1.jpg"}
+                width={540}
+                height={227}
+                priority={true}
+              />
+            )}
           <h2 className="h3 mt-4">
             <Link
               href={`/${type}/${post.id}`}
@@ -155,7 +164,7 @@ const Posts = ({ posts, type }) => {
           </p>
           <p className="text-text">
             {plainify(
-              post.description?.slice(0, Number(summary_length)),
+              post.description?.slice(0, Number(summary_length)).concat("..."),
               "div"
             )}
           </p>

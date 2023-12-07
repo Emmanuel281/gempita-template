@@ -1,3 +1,3 @@
 ### GET ALL LIST EVENT
-GET http://fanbase.gnusa.id/service/event-public?start=1&count=20 HTTP/1.1
+GET http://gempita.gnusa.id/service/event-public?start=1&count=20 HTTP/1.1
 content-type: application/cbor
