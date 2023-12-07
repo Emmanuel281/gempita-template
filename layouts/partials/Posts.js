@@ -63,7 +63,7 @@ const Posts = ({ posts, type }) => {
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img._img0}
-                alt={"/images/blog-1.jpg"}
+                alt={""}
                 width={540}
                 height={227}
                 priority={true}
@@ -72,7 +72,7 @@ const Posts = ({ posts, type }) => {
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img}
-                alt={"/images/blog-1.jpg"}
+                alt={""}
                 width={540}
                 height={227}
                 priority={true}
@@ -106,10 +106,15 @@ const Posts = ({ posts, type }) => {
             </p>
 
             <h5 className="mb-4 mt-4 text-text">
-              {plainify(
+              {type == 'acara' ? (
+                posts[0].place
+              ) : (
+                plainify(
                 posts[0].description?.slice(0, Number(summary_length)).concat("..."),
                 "div"
-              )}
+              )
+            )}
+              
             </h5>
             <Link
               className="btn btn-primary mt-4"
@@ -123,7 +128,7 @@ const Posts = ({ posts, type }) => {
       </div>
       {posts.slice(1).map((post, i) => (
         <div key={`key-${i}`} className="col-12 mb-8 sm:col-6 lg:col-4">
-          {posts.img._img0 ? (
+          {post.img._img0 ? (
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img._img0}
@@ -132,7 +137,7 @@ const Posts = ({ posts, type }) => {
                 height={227}
                 priority={true}
               />
-            ) : posts[0].img ? (
+            ) : post[0].img != "" ? (
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img}
@@ -144,7 +149,7 @@ const Posts = ({ posts, type }) => {
             ) : (
               <Image
                 className="h-auto w-full rounded-lg"
-                src={"/images/blog-1.jpg"}
+                src={"Revolusioner-530x356-5"}
                 alt={"/images/blog-1.jpg"}
                 width={540}
                 height={227}

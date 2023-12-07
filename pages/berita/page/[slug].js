@@ -12,8 +12,6 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
-  // console.warn("contentapi");
-  // console.warn(contentapi);
 
   return (
     <Base title={title}>

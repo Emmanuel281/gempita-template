@@ -2,41 +2,21 @@
 banner:
   title: Gempita
   content: Gerakan Milenial Pencinta Tanah Air
-  image: /images/banner-art.svg
+  images: 
+    - "/images/Banner website 2000x600.jpg"
+    - "/images/Banner website 2000x600-2.jpg"
   backgroundimage: https://placehold.co/2000x600
   button:
     label: "Contact Us"
     link: "/contact"
-
-# feature
-feature:
-  title: Something You Need To Know
-  features:
-    - name: "Clean Code"
-      icon: "/images/530x356.svg"
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-    - name: "Object Oriented"
-      icon: "/images/oop.svg"
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-    - name: "24h Service"
-      icon: "/images/user-clock.svg"
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-    - name: "Value for Money"
-      icon: "/images/love.svg"
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-    - name: "Faster Response"
-      icon: "/images/speedometer.svg"
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-    - name: "Cloud Support"
-      icon: "/images/cloud.svg"
-      content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
 
 # services
 services:
   - title: "MUKADIMAH"
     content: "Batasan pemahaman tentang “milenial” ada dua. Pertama, generasi berusia 24 – 39 tahun.Kedua,generasi melek teknologi. Dalam terminologi yang lebih luas: Generasi modern."
     images:
-      - "/images/530x356.svg"
+      - "/images/Mukadimah-530x356.jpg"
+      - "/images/Mukadimah-530x356-2.jpg"
     button:
       enable: false
       label: Check it out
@@ -51,9 +31,8 @@ Dengan keberanian yang besar, kelompok milenial mampu melakukan segala hal secar
 Tidak ada satu pun sejarah revolusi dunia yang tidak dimotori kaum muda.
 "
     images:
-      - "/images/530x356.svg"
-      - "/images/530x356.svg"
-      - "/images/530x356.svg"
+      - "/images/Revolusioner-530x356-5.jpg"
+      - "/images/Revolusioner-530x356-6.jpg"
     button:
       enable: false
       label: Check it out
@@ -66,9 +45,8 @@ Bill Gates dan Paul Allen masing-masing baru berusia 20 dan 22 tahun, ketika men
 tahun 1975. Kurang lebih, sama seperti Mark Elliot Zuckerberg yang
 menciptakan Facebook saat berusia 20 tahun."
     images:
-      - "/images/530x356.svg"
-      - "/images/530x356.svg"
-      - "/images/530x356.svg"
+      - "/images/Pelopor-530x356-3.jpg"
+      - "/images/Pelopor-530x356-4.jpg"
     button:
       enable: false
       label: Check it out

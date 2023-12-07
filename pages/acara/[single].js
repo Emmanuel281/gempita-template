@@ -1,5 +1,5 @@
 import config from "@config/config.json";
-import PostSingle from "@layouts/PostSingle";
+import PostAcara from "@layouts/Postacara";
 import { getSinglePage } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 const { blog_folder } = config.settings;
@@ -12,7 +12,7 @@ const Article = ({ post, authors, mdxContent, slug }) => {
   // console.log(frontmatter)
 
   return (
-    <PostSingle
+    <PostAcara
       frontmatter={post[0]}
       mdxContent={mdxContent}
       authors={authors}
