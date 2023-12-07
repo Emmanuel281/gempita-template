@@ -20,7 +20,7 @@ const Home = ({ frontmatter }) => {
     <Base title={title}>
       {/* Banner */}
       <section
-        className="section pb-[50px]"
+        className="section pb-[20px] pt-[20px]"
       >
         <Swiper
                     modules={[Autoplay, Pagination]}
