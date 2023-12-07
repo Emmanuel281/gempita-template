@@ -10,6 +10,7 @@ const { blog_folder } = config.settings;
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
+  console.log(contentapi)
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
 
@@ -33,8 +34,8 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
 export default BlogPagination;
 
 // get blog pagination slug
-export const getStaticPaths = () => {
-  const getAllSlug = getSinglePage(`http://gempita.gnusa.id/service/news-public?start=1&count=20`);
+export const getStaticPaths = async () => {
+  const getAllSlug = await getSinglePage(`http://gempita.gnusa.id/service/news-public?start=1&count=20`);
   // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;
