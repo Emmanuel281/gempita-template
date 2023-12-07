@@ -4,23 +4,22 @@ import Base from "@layouts/Baseof";
 import { getListPage, getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
-import Posts from "@partials/Posts";
+import Postsyoutube from "@partials/Postsyoutube";
 const { blog_folder } = config.settings;
 
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
+  console.log(contentapi)
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
-  console.warn("contentapi");
-  console.warn(contentapi);
 
   return (
     <Base title={title}>
       <section className="section">
         <div className="container">
-          {markdownify("Acara Terbaru", "h1", "h1 text-center font-normal text-[56px]")}
-          <Posts posts={contentapi.data} type="acara" />
+          {markdownify("Video Terbaru", "h1", "h1 text-center font-normal text-[56px]")}
+          <Postsyoutube posts={contentapi.data} type="youtube" />
           <Pagination
             section={blog_folder}
             totalPages={totalPages}
@@ -36,7 +35,7 @@ export default BlogPagination;
 
 // get blog pagination slug
 export const getStaticPaths = async () => {
-  const getAllSlug = await getSingleData(`http://gempita.gnusa.id/service/event-public?start=1&count=20`);
+  const getAllSlug = await getSingleData(`http://gempita.gnusa.id/service/youtube-public?start=1&count=20`);
   // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;
@@ -64,7 +63,7 @@ export const getStaticProps = async ({ params }) => {
   const { pagination } = config.settings;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/event-public?start=1&count=20`
+    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
   );
   const mdxContent = await parseMDX(postIndex.content);
 

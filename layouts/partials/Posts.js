@@ -137,7 +137,7 @@ const Posts = ({ posts, type }) => {
                 height={227}
                 priority={true}
               />
-            ) : post[0].img != "" ? (
+            ) : post.img != "" ? (
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img}
@@ -161,7 +161,11 @@ const Posts = ({ posts, type }) => {
               href={`/${type}/${post.id}`}
               className="block hover:text-primary"
             >
-              {post.title}
+              {posts[0].title
+                  ? posts[0].title
+                  : posts[0].channel_name
+                  ? posts[0].channel_name
+                  : ""}
             </Link>
           </h2>
           <p className="mb-2" style={{ fontSize: "1 rem" }}>

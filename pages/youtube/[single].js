@@ -1,16 +1,16 @@
 import config from "@config/config.json";
 import PostSingle from "@layouts/PostSingle";
+import PostYoutube from "@layouts/Postyoutube";
 import { getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 const { blog_folder } = config.settings;
 
 // post single layout
-const Article = ({ post, authors, mdxContent, slug }) => {
-  console.warn(post[0])
+const Article = ({ post, authors, slug }) => {
+  // console.warn(post)
   return (
-    <PostSingle
-      frontmatter={post[0]}
-      mdxContent={mdxContent}
+    <PostYoutube
+      frontmatter={post}
       authors={authors}
       slug={slug}
     />
@@ -18,14 +18,15 @@ const Article = ({ post, authors, mdxContent, slug }) => {
 };
 
 // get post single slug
-export const getStaticPaths = async () => {
-  const allSlug = await getSingleData(`http://gempita.gnusa.id/service/news-public?start=1&count=20`);
+export const getStaticPaths = async ({ }) => {
+  const allSlug = await getSingleData(`http://gempita.gnusa.id/service/youtube-public?start=1&count=20`);
+  console.log("allSlug")
+  console.log(allSlug)
   const paths = allSlug.data.map((item) => ({
     params: {
       single: item.id,
     },
   }));
-  console.log(paths);
   return {
     paths,
     fallback: false,
@@ -35,15 +36,13 @@ export const getStaticPaths = async () => {
 // get post single content
 export const getStaticProps = async ({ params }) => {
   const { single } = params;
-  console.log(single)
-  const posts = await getSingleData(`http://gempita.gnusa.id/service/news-public?start=1&count=20`);
-  const post = posts.data.filter((p) => p.id == single);
-  const mdxContent = await parseMDX(post[0].description);
-
+  const posts = await getSingleData(`http://gempita.gnusa.id/service/youtube-video-public/${single}?start=1&count=20`);
+  console.log("posts")
+  console.log(posts)
+  const post = posts.data.filter((p) => p.parentID == single);
   return {
     props: {
       post: post,
-      mdxContent: mdxContent,
       slug: single,
     },
   };
