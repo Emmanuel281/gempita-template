@@ -1,7 +1,7 @@
 import Pagination from "@components/Pagination";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
-import { getListPage, getSinglePage } from "@lib/contentParser";
+import { getListPage, getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
@@ -35,7 +35,7 @@ export default BlogPagination;
 
 // get blog pagination slug
 export const getStaticPaths = async () => {
-  const getAllSlug = await getSinglePage(`http://gempita.gnusa.id/service/news-public?start=1&count=20`);
+  const getAllSlug = await getSingleData("blogs", `http://gempita.gnusa.id/service/news-public?start=1&count=20`);
   // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;

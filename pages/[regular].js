@@ -52,8 +52,6 @@ export default RegularPages;
 // for regular page routes
 export const getStaticPaths = async () => {
   const allslugs = await getSinglePage("content");
-  console.warn("allslugs")
-  console.warn(allslugs)
   const slugs = allslugs.map((item) => item.slug);
   const paths = slugs.map((slug) => ({
     params: {
@@ -70,6 +68,8 @@ export const getStaticPaths = async () => {
 // for regular page data
 export const getStaticProps = async ({ params }) => {
   const { regular } = params;
+  console.log("regular")
+  console.log(regular)
   const regularPage = await getRegularPage(regular);
 
   return {
