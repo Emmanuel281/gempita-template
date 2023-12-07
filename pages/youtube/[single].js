@@ -22,7 +22,6 @@ const Article = ({ post, authors, mdxContent, slug }) => {
 // get post single slug
 export const getStaticPaths = () => {
   const allSlug = getSinglePage(`content/${blog_folder}`);
-  // console.log(allSlug);
   const paths = allSlug.map((item) => ({
     params: {
       single: item.slug,
@@ -38,7 +37,6 @@ export const getStaticPaths = () => {
 // get post single content
 export const getStaticProps = async ({ params }) => {
   const { single } = params;
-  console.log(single);
   const posts = getSinglePage(`content/${blog_folder}`);
   const post = posts.filter((p) => p.slug == single);
   const mdxContent = await parseMDX(post[0].content);

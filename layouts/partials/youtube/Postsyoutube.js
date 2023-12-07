@@ -3,18 +3,13 @@ import { plainify } from "@lib/utils/textConverter";
 import Image from "next/image";
 import Link from "next/link";
 
-const Posts = ({ posts, type }) => {
+const Postsyoutube = ({ posts }) => {
   const { blog_folder, summary_length } = config.settings;
+  // console.log("posts");
+  console.log(posts[0].date.epoch_time);
 
   const convertEpochDate = (arrayindex) => {
-    let epochDate = "";
-
-    if (posts[arrayindex].date?.epoch_time) {
-      epochDate = posts[arrayindex].date.epoch_time;
-    } else if (posts[arrayindex]._cd?.epoch_time) {
-      epochDate = posts[arrayindex]._cd.epoch_time;
-    }
-
+    const epochDate = posts[arrayindex]._cd.epoch_time;
     const epochInMilliseconds =
       epochDate > 9999999999 ? epochDate : epochDate * 1000;
     const date = new Date(epochInMilliseconds);
@@ -59,16 +54,7 @@ const Posts = ({ posts, type }) => {
           style={{ backgroundColor: "#e9e9e9" }}
         >
           <div className="col-12 md:col-6" style={{ padding: "0px" }}>
-            {posts[0].img._img0 ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img._img0}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : posts[0].img ? (
+            {posts[0].img ? (
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img}
@@ -81,7 +67,6 @@ const Posts = ({ posts, type }) => {
               <Image
                 className="h-auto w-full rounded-lg"
                 src={"/images/blog-1.jpg"}
-                alt={"/images/blog-1.jpg"}
                 width={540}
                 height={227}
                 priority={true}
@@ -91,14 +76,10 @@ const Posts = ({ posts, type }) => {
           <div className="col-12 md:col-6">
             <h2 className="h3 mt-4">
               <Link
-                href={`/${type}/${posts[0].id}`}
+                href={`/${blog_folder}/${posts[0].slug}`}
                 className="block hover:text-primary"
               >
-                {posts[0].title
-                  ? posts[0].title
-                  : posts[0].channel_name
-                  ? posts[0].channel_name
-                  : ""}
+                {posts[0].channel_name}
               </Link>
             </h2>
             <p className="mb-2" style={{ fontSize: "1 rem" }}>
@@ -113,7 +94,7 @@ const Posts = ({ posts, type }) => {
             </h5>
             <Link
               className="btn btn-primary mt-4"
-              href={`/${type}/${posts[0].id}`}
+              href={`/${blog_folder}/${posts[0].slug}`}
               rel=""
             >
               Read More
@@ -123,31 +104,21 @@ const Posts = ({ posts, type }) => {
       </div>
       {posts.slice(1).map((post, i) => (
         <div key={`key-${i}`} className="col-12 mb-8 sm:col-6 lg:col-4">
-          {posts[0].img._img0 ? (
+          {post.img._img0 && (
             <Image
-              className="h-auto w-full rounded-lg"
-              src={post.img._img0}
+              className="rounded-lg"
+              src={post.img}
               alt={"/images/blog-1.jpg"}
-              width={540}
-              height={227}
-              priority={true}
-            />
-          ) : (
-            <Image
-              className="h-auto w-full rounded-lg"
-              src={"/images/blog-1.jpg"}
-              alt={"/images/blog-1.jpg"}
-              width={540}
-              height={227}
-              priority={true}
+              width={i === 0 ? "925" : "445"}
+              height={i === 0 ? "475" : "230"}
             />
           )}
           <h2 className="h3 mt-4">
             <Link
-              href={`/${type}/${post.id}`}
+              href={`/${blog_folder}/${post.slug}`}
               className="block hover:text-primary"
             >
-              {post.title}
+              {post.channel_name}
             </Link>
           </h2>
           <p className="mb-2" style={{ fontSize: "1 rem" }}>
@@ -161,7 +132,7 @@ const Posts = ({ posts, type }) => {
           </p>
           <Link
             className="btn btn-primary mt-4"
-            href={`/${type}/${post.id}`}
+            href={`/${blog_folder}/${post.slug}`}
             rel=""
           >
             Read More
@@ -172,4 +143,4 @@ const Posts = ({ posts, type }) => {
   );
 };
 
-export default Posts;
+export default Postsyoutube;

@@ -5,6 +5,7 @@ import { getListPage, getSinglePage } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
+// import { Postsyoutube } from "@partials/youtube/Postsyoutube";
 const { blog_folder } = config.settings;
 
 // blog pagination
@@ -15,25 +16,15 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   const { title } = frontmatter;
-  console.warn("contentapi");
-  console.warn(contentapi);
-  // console.warn("postIndex");
-  // console.warn(postIndex);
-  // console.warn("posts");
-  // console.warn(posts);
-  // console.warn("currentPage");
-  // console.warn(currentPage);
-  // console.warn("pagination");
-  // console.warn(pagination);
-  // console.warn("currentPosts");
-  // console.warn(currentPosts);
+
+  console.log(contentapi);
 
   return (
     <Base title={title}>
       <section className="section">
         <div className="container">
           {markdownify(title, "h1", "h1 text-center font-normal text-[56px]")}
-          <Posts posts={contentapi.data} type="berita" />
+          <Posts posts={contentapi.data} />
           <Pagination
             section={blog_folder}
             totalPages={totalPages}
@@ -49,8 +40,7 @@ export default BlogPagination;
 
 // get blog pagination slug
 export const getStaticPaths = () => {
-  const getAllSlug = getSinglePage(`content/blogs`);
-  // console.log(getAllSlug);
+  const getAllSlug = getSinglePage(`content/${blog_folder}`);
   const allSlug = getAllSlug.map((item) => item.slug);
   const { pagination } = config.settings;
   const totalPages = Math.ceil(allSlug.length / pagination);
@@ -73,12 +63,14 @@ export const getStaticPaths = () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  // console.warn("currentPage", currentPage);
   const { pagination } = config.settings;
-  const posts = getSinglePage(`content/blogs`);
+  const posts = getSinglePage(`content/${blog_folder}`).sort(
+    (post1, post2) =>
+      new Date(post2.frontmatter.date) - new Date(post1.frontmatter.date)
+  );
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/news-public?start=1&count=20`
+    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
   );
   const mdxContent = await parseMDX(postIndex.content);
 
