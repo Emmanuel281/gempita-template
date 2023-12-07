@@ -51,7 +51,7 @@ export default RegularPages;
 
 // for regular page routes
 export const getStaticPaths = async () => {
-  const allslugs = getSinglePage("content");
+  const allslugs = await getSinglePage("content");
   const slugs = allslugs.map((item) => item.slug);
   const paths = slugs.map((slug) => ({
     params: {
