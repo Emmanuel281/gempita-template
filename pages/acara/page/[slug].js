@@ -35,8 +35,8 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
 export default BlogPagination;
 
 // get blog pagination slug
-export const getStaticPaths = () => {
-  const getAllSlug = getSinglePage(`http://gempita.gnusa.id/service/event-public?start=1&count=20`);
+export const getStaticPaths = async () => {
+  const getAllSlug = await getSinglePage(`http://gempita.gnusa.id/service/event-public?start=1&count=20`);
   // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;
