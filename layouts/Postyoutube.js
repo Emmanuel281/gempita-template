@@ -6,18 +6,22 @@ import Base from "./Baseof";
 import Link from "next/link";
 
 const PostYoutube = ({ frontmatter }) => {
-  console.log(frontmatter)
+  console.log(frontmatter);
   return (
     <Base>
       <section className="section">
         <div className="container">
           <div className="row">
             <article className="col-12 text-center ">
-                {markdownify(frontmatter[0].channel_name, "h1", "h2 mb-6 mt-6 text-left")}
-                {frontmatter.map((vids, index) => (
-                    <div key={index} className="col-12 mt-5">
-                        <div className="shadow">
-                            <table style={{width: "100%"}}>
+              {markdownify(
+                frontmatter[0].channel_name,
+                "h1",
+                "h2 mb-6 mt-6 text-left"
+              )}
+              {frontmatter.map((vids, index) => (
+                <div key={index} className="col-12 mt-5">
+                  <div className="shadow">
+                    {/* <table style={{width: "100%"}}>
                                 <tbody>
                                     <tr>
                                         <td rowSpan={2}>
@@ -41,11 +45,35 @@ const PostYoutube = ({ frontmatter }) => {
                                         <td><p>{vids.description.replace(/=/g,"").replace(/-/g,"")}</p></td>
                                     </tr>
                                 </tbody>
-                            </table>
-                            
-                        </div>
+                            </table> */}
+                    <div class="flex flex-col md:flex-row">
+                      <div class="flex-1">
+                        <Image
+                          className="max-w-full rounded-lg"
+                          src={vids.img}
+                          alt={""}
+                          width={540}
+                          height={227}
+                          priority={true}
+                        />
+                      </div>
+                      <div class="flex-1">
+                        <a
+                          target="_blank"
+                          href={vids.url}
+                          rel="noopener noreferrer"
+                        >
+                          <h3 className="h4 mt-4">{vids.title}</h3>
+                        </a>
+                        <br></br>
+                        <p>
+                          {vids.description.replace(/=/g, "").replace(/-/g, "")}
+                        </p>
+                      </div>
                     </div>
-                ))}
+                  </div>
+                </div>
+              ))}
             </article>
           </div>
         </div>
