@@ -30,7 +30,7 @@ strukturs:
       - Bidang Pendidikan dan Latihan
       - Bidang Monitoring dan Evaluasi (Raja)
 
-  - title: DIREKTUR IT DAN PUSAT DATA (Bonard Saragih)
+  - title: DIREKTUR IT DAN PUSAT DATA (Sri Widodo)
     people:
       - idang Perencanaan, Pengelolaan, dan Pemeliharaan IT ( Abdi & Dimas)
       - Bidang Server dan Database Organisasi
