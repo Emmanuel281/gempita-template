@@ -63,7 +63,7 @@ const Posts = ({ posts, type }) => {
               <Image
                 className="h-auto w-full rounded-lg"
                 src={posts[0].img._img0}
-                alt={""}
+                alt={"1"}
                 width={540}
                 height={227}
                 priority={true}
@@ -71,8 +71,10 @@ const Posts = ({ posts, type }) => {
             ) : posts[0].img ? (
               <Image
                 className="h-auto w-full rounded-lg"
-                src={posts[0].img}
-                alt={""}
+                src={
+                  posts[0].img.length >= 1 ? posts[0].img : "/images/blog-1.jpg"
+                }
+                alt={"2"}
                 width={540}
                 height={227}
                 priority={true}
@@ -106,15 +108,14 @@ const Posts = ({ posts, type }) => {
             </p>
 
             <h5 className="mb-4 mt-4 text-text">
-              {type == 'acara' ? (
-                posts[0].place
-              ) : (
-                plainify(
-                posts[0].description?.slice(0, Number(summary_length)).concat("..."),
-                "div"
-              )
-            )}
-              
+              {type == "acara"
+                ? posts[0].place
+                : plainify(
+                    posts[0].description
+                      ?.slice(0, Number(summary_length))
+                      .concat("..."),
+                    "div"
+                  )}
             </h5>
             <Link
               className="btn btn-primary mt-4"
@@ -129,43 +130,43 @@ const Posts = ({ posts, type }) => {
       {posts.slice(1).map((post, i) => (
         <div key={`key-${i}`} className="col-12 mb-8 sm:col-6 lg:col-4">
           {post.img._img0 ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img._img0}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : post.img != "" ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={"Revolusioner-530x356-5"}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            )}
+            <Image
+              className="h-auto w-full rounded-lg"
+              src={post.img._img0}
+              alt={"/images/blog-1.jpg"}
+              width={540}
+              height={227}
+              priority={true}
+            />
+          ) : post.img != "" ? (
+            <Image
+              className="h-auto w-full rounded-lg"
+              src={post.img}
+              alt={"/images/blog-1.jpg"}
+              width={540}
+              height={227}
+              priority={true}
+            />
+          ) : (
+            <Image
+              className="h-auto w-full rounded-lg"
+              src={"Revolusioner-530x356-5"}
+              alt={"/images/blog-1.jpg"}
+              width={540}
+              height={227}
+              priority={true}
+            />
+          )}
           <h2 className="h3 mt-4">
             <Link
               href={`/${type}/${post.id}`}
               className="block hover:text-primary"
             >
-              {posts[0].title
-                  ? posts[0].title
-                  : posts[0].channel_name
-                  ? posts[0].channel_name
-                  : ""}
+              {post.title
+                ? post.title
+                : post.channel_name
+                ? post.channel_name
+                : ""}
             </Link>
           </h2>
           <p className="mb-2" style={{ fontSize: "1 rem" }}>
