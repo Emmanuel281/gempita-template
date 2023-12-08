@@ -3,9 +3,14 @@
  */
 
 const nextConfig = {
-  reactStrictMode: true,
+  output: 'standalone',
   images: {
-    domains: ["placehold.co", "gempita.gnusa.id", "yt3.googleusercontent.com", "i.ytimg.com"],
+    domains: [
+      "placehold.co",
+      "gempita.gnusa.id",
+      "yt3.googleusercontent.com",
+      "i.ytimg.com",
+    ],
   },
 };
 
