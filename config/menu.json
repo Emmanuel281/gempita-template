@@ -27,6 +27,10 @@
     {
       "name": "Visi dan Misi",
       "url": "/visimisi"
+    },
+    {
+      "name": "Galeri",
+      "url": "/galeri"
     }
   ],
   "footer": [
@@ -44,6 +48,10 @@
         {
           "text": "Visi dan Misi",
           "url": "/visimisi"
+        },
+        {
+          "text": "Galeri",
+          "url": "/galeri"
         }
       ]
     },

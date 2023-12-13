@@ -28,6 +28,7 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./layouts/**/*.{js,ts,jsx,tsx}",
     "./content/**/*.{md,mdx}",
+    "node_modules/flowbite-react/lib/esm/**/*.js",
   ],
   theme: {
     screens: {
@@ -68,12 +69,16 @@ module.exports = {
         primary: [fontPrimary, fontPrimaryType],
         secondary: [fontSecondary, fontSecondaryType],
       },
+      gridTemplateColumns: {
+        gallery: "repeat(auto-fit, minmax(250px, 1fr))",
+      },
     },
   },
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("tailwind-bootstrap-grid")({ generateContainer: false }),
+    require("flowbite/plugin"),
   ],
   // important: true,
 };

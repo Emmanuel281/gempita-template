@@ -1,0 +1,4 @@
+---
+title: Galeri
+layout: galeri
+---

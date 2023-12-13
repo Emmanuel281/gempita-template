@@ -8,6 +8,7 @@ import Maknalogo from "@layouts/Maknalogo";
 import Struktur from "@layouts/Struktur";
 import Visidanmisi from "@layouts/Visidanmisi";
 import Privacypolicies from "@layouts/Privacypolicy";
+import Galeri from "@layouts/Galeri";
 import { getRegularPage, getSinglePage } from "@lib/contentParser";
 
 // for all regular pages
@@ -15,7 +16,7 @@ const RegularPages = ({ data }) => {
   const { title, meta_title, description, image, noindex, canonical, layout } =
     data.frontmatter;
   const { content } = data;
-  console.warn(layout);
+  // console.warn(layout);
   return (
     <Base
       title={title}
@@ -41,6 +42,8 @@ const RegularPages = ({ data }) => {
         <Visidanmisi data={data} />
       ) : layout === "privacypolicy" ? (
         <Privacypolicies data={data} />
+      ) : layout === "galeri" ? (
+        <Galeri data={data} />
       ) : (
         <Default data={data} />
       )}
@@ -68,8 +71,8 @@ export const getStaticPaths = async () => {
 // for regular page data
 export const getStaticProps = async ({ params }) => {
   const { regular } = params;
-  console.log("regular")
-  console.log(regular)
+  console.log("regular");
+  console.log(regular);
   const regularPage = await getRegularPage(regular);
 
   return {
