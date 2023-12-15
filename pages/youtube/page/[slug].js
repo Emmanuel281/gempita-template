@@ -10,7 +10,7 @@ const { blog_folder } = config.settings;
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log(contentapi)
+  console.log(contentapi);
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
 
@@ -18,7 +18,11 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
     <Base title={title}>
       <section className="section">
         <div className="container">
-          {markdownify("Video Terbaru", "h1", "h1 text-center font-normal text-[56px]")}
+          {markdownify(
+            "Video Youtube Terbaru",
+            "h1",
+            "h1 text-center font-normal text-[56px]"
+          )}
           <Postsyoutube posts={contentapi.data} type="youtube" />
           <Pagination
             section={blog_folder}
@@ -35,7 +39,9 @@ export default BlogPagination;
 
 // get blog pagination slug
 export const getStaticPaths = async () => {
-  const getAllSlug = await getSingleData(`http://gempita.gnusa.id/service/youtube-public?start=1&count=20`);
+  const getAllSlug = await getSingleData(
+    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
+  );
   // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;

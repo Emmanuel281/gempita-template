@@ -10,18 +10,23 @@ const { blog_folder } = config.settings;
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log(contentapi)
-  const totalPages = Math.ceil(contentapi.data.length / pagination);
+  console.log(contentapi);
+  const totalPages = Math.ceil(contentapi.total_count / pagination);
+  console.log(totalPages);
   const { title } = frontmatter;
 
   return (
     <Base title={title}>
       <section className="section">
         <div className="container">
-          {markdownify("Berita Terbaru", "h1", "h1 text-center font-normal text-[56px]")}
+          {markdownify(
+            "Berita Terbaru",
+            "h1",
+            "h1 text-center font-normal text-[56px]"
+          )}
           <Posts posts={contentapi.data} type="berita" />
           <Pagination
-            section={blog_folder}
+            section={"berita"}
             totalPages={totalPages}
             currentPage={currentPage}
           />
@@ -35,7 +40,9 @@ export default BlogPagination;
 
 // get blog pagination slug
 export const getStaticPaths = async () => {
-  const getAllSlug = await getSingleData(`http://gempita.gnusa.id/service/news-public?start=1&count=20`);
+  const getAllSlug = await getSingleData(
+    `http://gempita.gnusa.id/service/news-public?start=1&count=8`
+  );
   // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;
@@ -59,7 +66,6 @@ export const getStaticPaths = async () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  // console.warn("currentPage", currentPage);
   const { pagination } = config.settings;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,

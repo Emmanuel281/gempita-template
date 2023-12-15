@@ -54,131 +54,68 @@ const Postsyoutube = ({ posts, type }) => {
   return (
     <div className="section row pb-0">
       <div className="col-12 pb-12 lg:pb-24">
+        <div className="flex flex-nowrap overflow-x-scroll ">
+          {posts.map((post, i) => (
+            <div className="m-1 min-w-fit">
+              <Link
+                className="btn btn-primary m-1 min-w-fit"
+                href={`/${type}/${posts.id}`}
+                rel=""
+              >
+                {post.channel_name}
+              </Link>
+            </div>
+          ))}
+          {posts.map((post, i) => (
+            <div className="m-1 min-w-fit">
+              <Link
+                className="btn btn-primary m-1 min-w-fit"
+                href={`/${type}/${posts.id}`}
+                rel=""
+              >
+                {post.channel_name}
+              </Link>
+            </div>
+          ))}
+          {posts.map((post, i) => (
+            <div className="m-1 min-w-fit">
+              <Link
+                className="btn btn-primary m-1 min-w-fit"
+                href={`/${type}/${posts.id}`}
+                rel=""
+              >
+                {post.channel_name}
+              </Link>
+            </div>
+          ))}
+          {posts.map((post, i) => (
+            <div className="m-1 min-w-fit">
+              <Link
+                className="btn btn-primary m-1 min-w-fit"
+                href={`/${type}/${posts.id}`}
+                rel=""
+              >
+                {post.channel_name}
+              </Link>
+            </div>
+          ))}
+          {posts.map((post, i) => (
+            <div className="m-1 min-w-fit">
+              <Link
+                className="btn btn-primary m-1 min-w-fit"
+                href={`/${type}/${posts.id}`}
+                rel=""
+              >
+                {post.channel_name}
+              </Link>
+            </div>
+          ))}
+        </div>
         <div
           className="row items-center rounded-lg"
           style={{ backgroundColor: "#e9e9e9" }}
-        >
-          <div className="col-12 md:col-6" style={{ padding: "0px" }}>
-            {posts[0].img._img0 ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img._img0}
-                alt={""}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : posts[0].img ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img}
-                alt={""}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={"/images/blog-1.jpg"}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            )}
-          </div>
-          <div className="col-12 md:col-6">
-            <h2 className="h3 mt-4">
-              <Link
-                href={`/${type}/${posts[0].id}`}
-                className="block hover:text-primary"
-              >
-                {posts[0].title
-                  ? posts[0].title
-                  : posts[0].channel_name
-                  ? posts[0].channel_name
-                  : ""}
-              </Link>
-            </h2>
-            <h5 className="mb-4 mt-4 text-text">
-              {type == 'acara' ? (
-                posts[0].place
-              ) : (
-                plainify(
-                posts[0].description?.slice(0, Number(summary_length)).concat("..."),
-                "div"
-              )
-            )}
-              
-            </h5>
-            <Link
-              className="btn btn-primary mt-4"
-              href={`/${type}/${posts[0].id}`}
-              rel=""
-            >
-              Read More
-            </Link>
-          </div>
-        </div>
+        ></div>
       </div>
-      {posts.slice(1).map((post, i) => (
-        <div key={`key-${i}`} className="col-12 mb-8 sm:col-6 lg:col-4">
-          {post.img._img0 ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img._img0}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : post.img != "" ? (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={posts[0].img}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            ) : (
-              <Image
-                className="h-auto w-full rounded-lg"
-                src={"Revolusioner-530x356-5"}
-                alt={"/images/blog-1.jpg"}
-                width={540}
-                height={227}
-                priority={true}
-              />
-            )}
-          <h2 className="h3 mt-4">
-            <Link
-              href={`/${type}/${post.id}`}
-              className="block hover:text-primary"
-            >
-              {posts[0].title
-                  ? posts[0].title
-                  : posts[0].channel_name
-                  ? posts[0].channel_name
-                  : ""}
-            </Link>
-          </h2>
-          <p className="text-text">
-            {plainify(
-              post.description?.slice(0, Number(summary_length)).concat("..."),
-              "div"
-            )}
-          </p>
-          <Link
-            className="btn btn-primary mt-4"
-            href={`/${type}/${post.id}`}
-            rel=""
-          >
-            Read More
-          </Link>
-        </div>
-      ))}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
 
   return (
     <>
-      {totalPages > 1 && (
+      {totalPages > 0 && (
         <nav
           className="mb-4 mt-10 flex justify-center space-x-[10px]"
           aria-label="Pagination"

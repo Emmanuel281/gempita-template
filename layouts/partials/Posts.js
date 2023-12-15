@@ -117,13 +117,13 @@ const Posts = ({ posts, type }) => {
                     "div"
                   )}
             </h5>
-            <Link
+            {/* <Link
               className="btn btn-primary mt-4"
               href={`/${type}/${posts[0].id}`}
               rel=""
             >
               Read More
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
@@ -178,13 +178,13 @@ const Posts = ({ posts, type }) => {
               "div"
             )}
           </p>
-          <Link
+          {/* <Link
             className="btn btn-primary mt-4"
             href={`/${type}/${post.id}`}
             rel=""
           >
             Read More
-          </Link>
+          </Link> */}
         </div>
       ))}
     </div>
