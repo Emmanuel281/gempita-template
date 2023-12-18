@@ -1,0 +1,4 @@
+### GET ALL LIST YOUTUBE VIDEO BY ID
+##http://gempita.gnusa.id/service/youtube-video-public/?start=1&count=20
+GET http://gempita.gnusa.id/service/youtube-video-public/e4628053-4217-4290-9416-71701e5551c8?start=1&count=20 HTTP/1.1
+content-type: application/cbor

@@ -3,7 +3,7 @@ import { plainify } from "@lib/utils/textConverter";
 import Image from "next/image";
 import Link from "next/link";
 
-const Postsyoutube = ({ posts, type }) => {
+const Listvideo = ({ posts, type }) => {
   const { blog_folder, summary_length } = config.settings;
 
   const convertEpochDate = (arrayindex) => {
@@ -53,8 +53,8 @@ const Postsyoutube = ({ posts, type }) => {
 
   return (
     <div className="section row pb-0">
-      <div className="col-12">
-        <div className="flex flex-nowrap overflow-x-auto px-4">
+      <div className="col-12 pb-12 lg:pb-24">
+        <div className="flex flex-nowrap overflow-x-scroll px-4">
           {posts.map((post, i) => (
             <div className="m-1 min-w-fit">
               <Link
@@ -72,4 +72,4 @@ const Postsyoutube = ({ posts, type }) => {
   );
 };
 
-export default Postsyoutube;
+export default Listvideo;

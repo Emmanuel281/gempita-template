@@ -5,6 +5,8 @@ import { getListPage, getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Postsyoutube from "@partials/Postsyoutube";
+import PostYoutube from "@layouts/Postyoutube";
+import Listvideo from "@partials/Listvideo";
 const { blog_folder } = config.settings;
 
 // blog pagination
@@ -24,6 +26,7 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
             "h1 text-center font-normal text-[56px]"
           )}
           <Postsyoutube posts={contentapi.data} type="youtube" />
+          {/* <PostYoutube posts={contentapi.data} type="youtube" /> */}
           <Pagination
             section={blog_folder}
             totalPages={totalPages}
@@ -65,20 +68,24 @@ export const getStaticPaths = async () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  // console.warn("currentPage", currentPage);
+  console.warn("params");
+  console.warn(params);
   const { pagination } = config.settings;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
     `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
   );
-  const mdxContent = await parseMDX(postIndex.content);
+  // const viedoIndex = await getListPage(
+  //   `content/${blog_folder}/_index.md`,
+  //   `http://gempita.gnusa.id/service/youtube-video-public/?start=1&count=20`
+  // );
 
   return {
     props: {
       pagination: pagination,
       currentPage: currentPage,
       postIndex: postIndex,
-      mdxContent: mdxContent,
+      // posts: viedoIndex,
     },
   };
 };
