@@ -6,10 +6,8 @@ const { blog_folder } = config.settings;
 
 // post single layout
 const Article = ({ post, authors, mdxContent, slug }) => {
-  console.warn(post[0])
+  console.warn(post[0]);
   // const { frontmatter, content } = post[0];
-
-  // console.log(frontmatter)
 
   return (
     <PostAcara
@@ -23,13 +21,14 @@ const Article = ({ post, authors, mdxContent, slug }) => {
 
 // get post single slug
 export const getStaticPaths = async () => {
-  const allSlug = await getSingleData(`http://gempita.gnusa.id/service/event-public?start=1&count=20`);
+  const allSlug = await getSingleData(
+    `http://gempita.gnusa.id/service/event-public?start=1&count=20`
+  );
   const paths = allSlug.data.map((item) => ({
     params: {
       single: item.id,
     },
   }));
-  console.log(paths);
   return {
     paths,
     fallback: false,
@@ -39,8 +38,9 @@ export const getStaticPaths = async () => {
 // get post single content
 export const getStaticProps = async ({ params }) => {
   const { single } = params;
-  console.log(single)
-  const posts = await getSingleData(`http://gempita.gnusa.id/service/event-public?start=1&count=20`);
+  const posts = await getSingleData(
+    `http://gempita.gnusa.id/service/event-public?start=1&count=20`
+  );
   const post = posts.data.filter((p) => p.id == single);
   const mdxContent = await parseMDX(post[0].description);
 

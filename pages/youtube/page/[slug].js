@@ -7,15 +7,16 @@ import { markdownify } from "@lib/utils/textConverter";
 import Postsyoutube from "@partials/Postsyoutube";
 import PostYoutube from "@layouts/Postyoutube";
 import Listvideo from "@partials/Listvideo";
-const { blog_folder } = config.settings;
+const { blog_folder } = config.settingsyoutube;
 
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log(contentapi);
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
 
+  console.log("contentapi");
+  console.log(contentapi);
   return (
     <Base title={title}>
       <section className="section">
@@ -45,7 +46,6 @@ export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
     `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
   );
-  // console.log("getAllSlug");
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settings;
   const totalPages = Math.ceil(allSlug.length / pagination);
@@ -68,8 +68,6 @@ export const getStaticPaths = async () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  console.warn("params");
-  console.warn(params);
   const { pagination } = config.settings;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,

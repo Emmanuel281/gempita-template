@@ -7,15 +7,11 @@ import Base from "./Baseof";
 import Link from "next/link";
 import Postsyoutube from "@partials/Postsyoutube";
 import Pagination from "@components/Pagination";
-const { blog_folder, pagination } = config.settings;
+const { blog_folder, pagination } = config.settingsyoutube;
 
-const PostYoutube = ({ frontmatter, post, postindex }) => {
+const PostYoutube = ({ frontmatter, post, posts, postindex }) => {
   let { description, title } = frontmatter;
-  // console.log("post");
-  // console.log(post[0]);
-  console.log("postindex");
-  console.log(postindex.contentapi.data);
-  const totalPages = Math.ceil(post.length / pagination);
+  const totalPages = Math.ceil(posts.total_count / pagination);
   const currentPage = 1;
   return (
     <Base title={title} description={description}>
@@ -42,8 +38,8 @@ const PostYoutube = ({ frontmatter, post, postindex }) => {
                                   className="max-w-full rounded-lg"
                                   src={vids.img}
                                   alt={""}
-                                  width={270}
-                                  height={114}
+                                  width={336}
+                                  height={142}
                                   priority={true}
                                 />
                               </div>
@@ -53,7 +49,7 @@ const PostYoutube = ({ frontmatter, post, postindex }) => {
                                   href={vids.url}
                                   rel="noopener noreferrer"
                                 >
-                                  <h3 className="h4 mt-4">{vids.title}</h3>
+                                  <h4 className="h4 my-4">{vids.title}</h4>
                                 </a>
                                 <p>
                                   {vids.description

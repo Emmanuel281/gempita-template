@@ -7,53 +7,55 @@ import { markdownify } from "@lib/utils/textConverter";
 import Postsyoutube from "@partials/Postsyoutube";
 import PostYoutube from "@layouts/Postyoutube";
 import Listvideo from "@partials/Listvideo";
-const { blog_folder } = config.settings;
+const { blog_folder, pagination } = config.settingsyoutube;
 
-// post single layout
-const Article = ({
-  postIndex,
-  post,
-  authors,
-  slug,
-  currentPage,
-  pagination,
-}) => {
+// blog pagination
+const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log("post");
-  console.log(post);
-  // const totalPages = Math.ceil(contentapi.data.length / pagination);
+  const totalPages = Math.ceil(contentapi.data.length / pagination);
+  const { title } = frontmatter;
 
+  console.log("contentapi");
+  console.log(contentapi);
   return (
     <PostYoutube
       frontmatter={frontmatter}
       post={post}
+      posts={posts}
       postindex={postIndex}
       type="youtube"
+      currentPage={currentPage}
+      pagination={pagination}
     />
   );
 };
 
-// get post single slug
-export const getStaticPaths = async ({}) => {
+export default BlogPagination;
+
+// get blog pagination slug
+export const getStaticPaths = async () => {
+  console.log("slug jalan");
   const allSlug = await getSingleData(
     `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
   );
-  // console.log("allSlug");
-  // console.log(allSlug);
+  //   console.log("jalan");
   const paths = allSlug.data.map((item) => ({
     params: {
       single: item.id,
+      slug: item.id,
     },
   }));
+  console.log(paths);
   return {
     paths,
     fallback: false,
   };
 };
 
-// get post single content
+// get blog pagination content
 export const getStaticProps = async ({ params }) => {
-  const { single } = params;
+  console.log(params);
+  const currentPage = parseInt((params && params.slug) || 1);
   const { pagination } = config.settings;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
@@ -62,17 +64,14 @@ export const getStaticProps = async ({ params }) => {
   const posts = await getSingleData(
     `http://gempita.gnusa.id/service/youtube-video-public/${single}?start=1&count=20`
   );
-  // console.log("posts getStaticProps");
-  // console.log(posts);
   const post = posts.data.filter((p) => p.parentID == single);
   return {
     props: {
       postIndex: postIndex,
       post: post,
+      posts: posts,
       slug: single,
       pagination: pagination,
     },
   };
 };
-
-export default Article;

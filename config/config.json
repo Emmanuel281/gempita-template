@@ -15,6 +15,24 @@
     "blog_folder": "blogs"
   },
 
+  "settingsyoutube": {
+    "pagination": 8,
+    "summary_length": 300,
+    "blog_folder": "youtube"
+  },
+
+  "settingsberita": {
+    "pagination": 8,
+    "summary_length": 300,
+    "blog_folder": "berita"
+  },
+
+  "settingsacara": {
+    "pagination": 8,
+    "summary_length": 300,
+    "blog_folder": "blogs"
+  },
+
   "nav_button": {
     "enable": false,
     "label": "Get Started",

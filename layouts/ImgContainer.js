@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function ImgContainer({ photo }) {
   const widthHeightRatio = photo.height / photo.width;
   const galleryHeight = Math.ceil(250 * widthHeightRatio);
-  const photoSpans = Math.ceil(galleryHeight / 10) + 1;
+  const photoSpans = Math.ceil(galleryHeight / 10) + 4;
 
   console.warn(photo.src);
 
@@ -27,6 +27,7 @@ export default function ImgContainer({ photo }) {
             sizes="250px"
             className="group-hover:opacity-75"
           />
+          <h6>{photo.alt}</h6>
         </div>
       </Link>
     </div>
