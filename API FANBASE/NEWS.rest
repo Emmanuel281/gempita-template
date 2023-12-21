@@ -1,3 +1,0 @@
-### GET ALL LIST NEWS
-GET http://gempita.gnusa.id/service/news-public?start=1&count=20 HTTP/1.1
-content-type: application/cbor

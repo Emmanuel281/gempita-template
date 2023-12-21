@@ -2,11 +2,11 @@ import config from "@config/config.json";
 import PostAcara from "@layouts/Postacara";
 import { getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
-const { blog_folder } = config.settings;
+const { blog_folder } = config.settingsacara;
 
 // post single layout
 const Article = ({ post, authors, mdxContent, slug }) => {
-  console.warn(post[0]);
+  // console.warn(post[0]);
   // const { frontmatter, content } = post[0];
 
   return (
@@ -21,27 +21,24 @@ const Article = ({ post, authors, mdxContent, slug }) => {
 
 // get post single slug
 export const getStaticPaths = async () => {
-  const allSlug = await getSingleData(
-    `http://gempita.gnusa.id/service/event-public?start=1&count=20`
-  );
-  const paths = allSlug.data.map((item) => ({
-    params: {
-      single: item.id,
-    },
-  }));
   return {
-    paths,
-    fallback: false,
+    paths: [],
+    fallback: 'blocking',
   };
 };
 
 // get post single content
 export const getStaticProps = async ({ params }) => {
   const { single } = params;
+  
+  const singles = single.split("$")
+  console.log("singles")
+  console.log(singles)
+  const { pagination } = config.settingsacara
   const posts = await getSingleData(
-    `http://gempita.gnusa.id/service/event-public?start=1&count=20`
+    `http://gempita.gnusa.id/service/event-public?start=${singles[0]}&count=${pagination}`
   );
-  const post = posts.data.filter((p) => p.id == single);
+  const post = posts.data.filter((p) => p.id == singles[1]);
   const mdxContent = await parseMDX(post[0].description);
 
   return {

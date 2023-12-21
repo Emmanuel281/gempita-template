@@ -22,7 +22,7 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Posts posts={contentapi.data} type="acara" />
+          <Posts posts={contentapi.data} currentPage={currentPage} type="acara" />
           <Pagination
             section={blog_folder}
             totalPages={totalPages}
@@ -42,7 +42,7 @@ export const getStaticPaths = async () => {
     `http://gempita.gnusa.id/service/event-public?start=1&count=20`
   );
   const allSlug = getAllSlug.data.map((item) => item.slug);
-  const { pagination } = config.settings;
+  const { pagination } = config.settingsacara;
   const totalPages = Math.ceil(allSlug.length / pagination);
   let paths = [];
 
@@ -63,10 +63,14 @@ export const getStaticPaths = async () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  const { pagination } = config.settings;
+  const { pagination } = config.settingsacara;
+  let start = 1
+  if (currentPage > 1) {
+    start = (currentPage - 1) * pagination
+  }
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/event-public?start=1&count=20`
+    `http://gempita.gnusa.id/service/event-public?start=${start}&count=${pagination}`
   );
   const mdxContent = await parseMDX(postIndex.content);
 

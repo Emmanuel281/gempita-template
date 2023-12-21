@@ -3,7 +3,7 @@ import { plainify } from "@lib/utils/textConverter";
 import Image from "next/image";
 import Link from "next/link";
 
-const Posts = ({ posts, type }) => {
+const Posts = ({ posts, type, currentPage }) => {
   const { blog_folder, summary_length } = config.settings;
 
   const convertEpochDate = (arrayindex) => {
@@ -93,7 +93,7 @@ const Posts = ({ posts, type }) => {
           <div className="col-12 md:col-6">
             <h2 className="h3 mt-4">
               <Link
-                href={`/${type}/${posts[0].id}`}
+                href={`/${type}/${currentPage}$${posts[0].id}`}
                 className="block hover:text-primary"
               >
                 {posts[0].title
@@ -159,7 +159,7 @@ const Posts = ({ posts, type }) => {
           )}
           <h2 className="h3 mt-4">
             <Link
-              href={`/${type}/${post.id}`}
+              href={`/${type}/${currentPage}$${post.id}`}
               className="block hover:text-primary"
             >
               {post.title
