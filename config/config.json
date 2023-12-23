@@ -30,7 +30,7 @@
   "settingsacara": {
     "pagination": 8,
     "summary_length": 300,
-    "blog_folder": "blogs"
+    "blog_folder": "acara"
   },
 
   "nav_button": {

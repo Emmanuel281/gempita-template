@@ -23,18 +23,18 @@ const Article = ({ post, authors, mdxContent, slug }) => {
 export const getStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 };
 
 // get post single content
 export const getStaticProps = async ({ params }) => {
   const { single } = params;
-  
-  const singles = single.split("$")
-  console.log("singles")
-  console.log(singles)
-  const { pagination } = config.settingsacara
+
+  const singles = single.split("$");
+  console.log("singles");
+  console.log(singles);
+  const { pagination } = config.settingsacara;
   const posts = await getSingleData(
     `http://gempita.gnusa.id/service/event-public?start=${singles[0]}&count=${pagination}`
   );

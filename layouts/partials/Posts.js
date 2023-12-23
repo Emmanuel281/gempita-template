@@ -104,7 +104,18 @@ const Posts = ({ posts, type, currentPage }) => {
               </Link>
             </h2>
             <p className="mb-2" style={{ fontSize: "1 rem" }}>
-              {convertEpochDate(0)}
+              {convertEpochDate(0)}{" "}
+              <span
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  padding: "4px 8px",
+                  textAlign: "center",
+                  borderRadius: "5px",
+                }}
+              >
+                Terbaru
+              </span>
             </p>
 
             <h5 className="mb-4 mt-4 text-text">

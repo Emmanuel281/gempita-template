@@ -73,17 +73,17 @@ export const getStaticProps = async ({ params }) => {
     `content/${blog_folder}/_index.md`,
     `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
   );
-  // const viedoIndex = await getListPage(
-  //   `content/${blog_folder}/_index.md`,
-  //   `http://gempita.gnusa.id/service/youtube-video-public/?start=1&count=20`
-  // );
+  const viedoIndex = await getListPage(
+    `content/${blog_folder}/_index.md`,
+    `http://gempita.gnusa.id/service/youtube-video-public/?start=1&count=20`
+  );
 
   return {
     props: {
       pagination: pagination,
       currentPage: currentPage,
       postIndex: postIndex,
-      // posts: viedoIndex,
+      posts: viedoIndex,
     },
   };
 };
