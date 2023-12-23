@@ -2,6 +2,11 @@ import Link from "next/link";
 import React from "react";
 
 const Pagination = ({ section, currentPage, totalPages }) => {
+
+  if (typeof currentPage == 'string') {
+    currentPage = parseInt(currentPage)
+  }
+
   const indexPageLink = currentPage === 2;
   const hasPrevPage = currentPage > 1;
   const hasNextPage = totalPages > currentPage;

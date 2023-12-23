@@ -7,53 +7,42 @@ import { markdownify } from "@lib/utils/textConverter";
 import Postsyoutube from "@partials/Postsyoutube";
 import PostYoutube from "@layouts/Postyoutube";
 import Listvideo from "@partials/Listvideo";
-const { blog_folder, pagination, chanel } = config.settingsyoutube;
+const { blog_folder } = config.settingsyoutube;
 
-// post single layout
-const Article = ({ postIndex, post, posts, pagination }) => {
+// blog pagination
+const BlogPagination = ({ postIndex,post, posts, slug, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log(posts);
+  const totalPages = Math.ceil(contentapi.data.length / pagination);
+  const { title } = frontmatter;
+// console.log(currentPage.slug)
+//   console.log("contentapi");
+//   console.log(contentapi);
   return (
     <PostYoutube
       frontmatter={frontmatter}
       post={post}
       posts={posts}
+      slug={slug}
       postindex={postIndex}
+      currentPage={currentPage.slug}
       type="youtube"
     />
   );
 };
 
-// get post single slug
-export const getStaticPaths = async ({}) => {
-  const allSlug = await getSingleData(
-    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
-  );
-  //   console.log("jalan");
-  const paths = allSlug.data.map((item) => ({
-    params: {
-      single: item.id,
-    },
-  }));
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-};
+export default BlogPagination;
 
-// get post single content
-export const getStaticProps = async ({ params }) => {
-  //   console.log("jalan");
-  console.log("blog_folder");
-  const { single } = params;
+// get blog pagination content
+export const getServerSideProps = async ({ params }) => {
+  const { single, slug } = params;
   const { pagination } = config.settingsyoutube;
+  const start = (slug *  pagination) + 1
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
+    `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
   );
   const posts = await getSingleData(
-    `http://gempita.gnusa.id/service/youtube-video-public/${single}?start=1&count=20`
+    `http://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=${start}&count=${pagination}`
   );
   const post = posts.data.filter((p) => p.parentID == single);
   return {
@@ -62,9 +51,8 @@ export const getStaticProps = async ({ params }) => {
       post: post,
       posts: posts,
       slug: single,
+      currentPage: params,
       pagination: pagination,
     },
   };
 };
-
-export default Article;

@@ -44,10 +44,10 @@ export default BlogPagination;
 // get blog pagination slug
 export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
-    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
+    `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
   );
   const allSlug = getAllSlug.data.map((item) => item.slug);
-  const { pagination } = config.settings;
+  const { pagination } = config.settingsyoutube;
   const totalPages = Math.ceil(allSlug.length / pagination);
   let paths = [];
 
@@ -68,14 +68,10 @@ export const getStaticPaths = async () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  const { pagination } = config.settings;
+  const { pagination } = config.settingsyoutube;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/youtube-public?start=1&count=20`
-  );
-  const viedoIndex = await getListPage(
-    `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/youtube-video-public/?start=1&count=20`
+    `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=${pagination}`
   );
 
   return {
@@ -83,7 +79,6 @@ export const getStaticProps = async ({ params }) => {
       pagination: pagination,
       currentPage: currentPage,
       postIndex: postIndex,
-      posts: viedoIndex,
     },
   };
 };

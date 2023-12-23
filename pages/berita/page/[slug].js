@@ -24,7 +24,7 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Posts posts={contentapi.data} type="berita" />
+          <Posts posts={contentapi.data} currentPage={currentPage} type="berita" />
           <Pagination
             section={"berita"}
             totalPages={totalPages}
@@ -41,7 +41,7 @@ export default BlogPagination;
 // get blog pagination slug
 export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
-    `http://gempita.gnusa.id/service/news-public?start=1&count=1`
+    `http://adm.gempitamilenial.org/service/news-public?start=1&count=1`
   );
   // console.log("getAllSlug");
   // const allSlug = getAllSlug.data.map((item) => item.slug);
@@ -69,12 +69,13 @@ export const getStaticProps = async ({ params }) => {
   const { pagination } = config.settings;
   let start = 1;
   if (currentPage > 1) {
-    start = (currentPage - 1) * pagination;
+    start = (currentPage  * pagination) + 1;
   }
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/news-public?start=${start}&count=${pagination}`
+    `http://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
   );
+  console.log(postIndex)
   const mdxContent = await parseMDX(postIndex.content);
 
   return {

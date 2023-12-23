@@ -14,7 +14,6 @@ const Posts = ({ posts, type, currentPage }) => {
     } else if (posts[arrayindex]._cd?.epoch_time) {
       epochDate = posts[arrayindex]._cd.epoch_time;
     }
-
     const epochInMilliseconds =
       epochDate > 9999999999 ? epochDate : epochDate * 1000;
     const date = new Date(epochInMilliseconds);
@@ -72,7 +71,7 @@ const Posts = ({ posts, type, currentPage }) => {
               <Image
                 className="h-auto w-full rounded-lg"
                 src={
-                  posts[0].img.length >= 1 ? posts[0].img : "/images/blog-1.jpg"
+                  posts[0].img.length >= 1 ? posts[0].img : "/images/Mukadimah-530x356.jpg"
                 }
                 alt={"2"}
                 width={540}
@@ -82,7 +81,7 @@ const Posts = ({ posts, type, currentPage }) => {
             ) : (
               <Image
                 className="h-auto w-full rounded-lg"
-                src={"/images/blog-1.jpg"}
+                src={"/images/Mukadimah-530x356.jpg"}
                 alt={"/images/blog-1.jpg"}
                 width={540}
                 height={227}

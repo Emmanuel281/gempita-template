@@ -2,7 +2,7 @@ import config from "@config/config.json";
 import PostSingle from "@layouts/PostSingle";
 import { getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
-const { blog_folder } = config.settings;
+const { blog_folder } = config.settingsberita;
 
 // post single layout
 const Article = ({ post, authors, mdxContent, slug }) => {
@@ -18,27 +18,24 @@ const Article = ({ post, authors, mdxContent, slug }) => {
 
 // get post single slug
 export const getStaticPaths = async () => {
-  const allSlug = await getSingleData(
-    `http://gempita.gnusa.id/service/news-public?start=1&count=20`
-  );
-  const paths = allSlug.data.map((item) => ({
-    params: {
-      single: item.id,
-    },
-  }));
   return {
-    paths,
-    fallback: false,
+    paths: [],
+    fallback: "blocking",
   };
 };
 
 // get post single content
 export const getStaticProps = async ({ params }) => {
   const { single } = params;
+  const singles = single.split("$");
+  const { pagination } = config.settingsberita;
   const posts = await getSingleData(
-    `http://gempita.gnusa.id/service/news-public?start=1&count=20`
+    `http://adm.gempitamilenial.org/service/news-public?start=${singles[0]}&count=${pagination}`
   );
-  const post = posts.data.filter((p) => p.id == single);
+  console.log("posts")
+  console.log(posts)
+  console.log(posts)
+  const post = posts.data.filter((p) => p.id == singles[1]);
   const mdxContent = await parseMDX(post[0].description);
 
   return {

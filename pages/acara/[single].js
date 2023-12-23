@@ -32,11 +32,9 @@ export const getStaticProps = async ({ params }) => {
   const { single } = params;
 
   const singles = single.split("$");
-  console.log("singles");
-  console.log(singles);
   const { pagination } = config.settingsacara;
   const posts = await getSingleData(
-    `http://gempita.gnusa.id/service/event-public?start=${singles[0]}&count=${pagination}`
+    `http://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`
   );
   const post = posts.data.filter((p) => p.id == singles[1]);
   const mdxContent = await parseMDX(post[0].description);

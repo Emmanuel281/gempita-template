@@ -9,10 +9,11 @@ import Postsyoutube from "@partials/Postsyoutube";
 import Pagination from "@components/Pagination";
 const { blog_folder, pagination } = config.settingsyoutube;
 
-const PostYoutube = ({ frontmatter, post, posts, postindex }) => {
+const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex }) => {
   let { description, title } = frontmatter;
   const totalPages = Math.ceil(posts.total_count / pagination);
-  const currentPage = 1;
+  const url = `${blog_folder}/${slug}`
+  console.log(currentPage)
   return (
     <Base title={title} description={description}>
       <section className="section">
@@ -67,7 +68,7 @@ const PostYoutube = ({ frontmatter, post, posts, postindex }) => {
             </div>
           </section>
           <Pagination
-            section={blog_folder}
+            section={url}
             totalPages={totalPages}
             currentPage={currentPage}
           />

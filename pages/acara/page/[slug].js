@@ -44,7 +44,7 @@ export default BlogPagination;
 // get blog pagination slug
 export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
-    `http://gempita.gnusa.id/service/event-public?start=1&count=1`
+    `http://adm.gempitamilenial.org/service/event-public?start=1&count=1`
   );
   const { pagination } = config.settingsacara;
   const totalPages = Math.ceil(getAllSlug.total_count / pagination);
@@ -76,7 +76,7 @@ export const getStaticProps = async ({ params }) => {
   }
   let postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
-    `http://gempita.gnusa.id/service/event-public?start=${start}&count=${pagination}`
+    `http://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`
   );
 
   const mdxContent = await parseMDX(postIndex.content);
