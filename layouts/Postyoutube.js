@@ -22,7 +22,7 @@ const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex })
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Postsyoutube posts={postindex.contentapi.data} type="youtube" />
+          <Postsyoutube posts={postindex.contentapi.data} slug={slug} type="youtube" />
           <hr></hr>
           <section>
             <div className="container">
