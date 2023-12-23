@@ -13,7 +13,6 @@ const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex })
   let { description, title } = frontmatter;
   const totalPages = Math.ceil(posts.total_count / pagination);
   const url = `${blog_folder}/${slug}`
-  console.log(currentPage)
   return (
     <Base title={title} description={description}>
       <section className="section">

@@ -8,11 +8,12 @@ import Postsyoutube from "@partials/Postsyoutube";
 import PostYoutube from "@layouts/Postyoutube";
 import Listvideo from "@partials/Listvideo";
 const { blog_folder, pagination, chanel } = config.settingsyoutube;
+export const revalidate = 60
 
 // post single layout
 const Article = ({ postIndex, post, posts, pagination, slug }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log(posts);
+  // console.log(posts);
   return (
     <PostYoutube
       frontmatter={frontmatter}

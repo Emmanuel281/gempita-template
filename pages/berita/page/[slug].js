@@ -6,13 +6,11 @@ import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 const { blog_folder } = config.settingsberita;
-
+export const revalidate = 60
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
-  console.log(contentapi);
   const totalPages = Math.ceil(contentapi.total_count / pagination);
-  console.log(totalPages);
   const { title } = frontmatter;
 
   return (
@@ -43,20 +41,22 @@ export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
     `http://adm.gempitamilenial.org/service/news-public?start=1&count=1`
   );
-  // console.log("getAllSlug");
+  console.log("getAllSlug");
+  console.log(getAllSlug);
   // const allSlug = getAllSlug.data.map((item) => item.slug);
-  const { pagination } = config.settings;
+  const { pagination } = config.settingsberita;
   const totalPages = Math.ceil(getAllSlug.total_count / pagination);
   let paths = [];
 
-  for (let i = 1; i <= totalPages; i++) {
+  for (let i = 1; i < totalPages; i++) {
     paths.push({
       params: {
         slug: (i + 1).toString(),
       },
     });
   }
-
+  console.log("totalPages")
+  console.log(totalPages)
   return {
     paths,
     fallback: false,
@@ -66,7 +66,7 @@ export const getStaticPaths = async () => {
 // get blog pagination content
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
-  const { pagination } = config.settings;
+  const { pagination } = config.settingsberita;
   let start = 1;
   if (currentPage > 1) {
     start = (currentPage  * pagination) + 1;

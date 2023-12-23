@@ -3,7 +3,7 @@ import PostAcara from "@layouts/Postacara";
 import { getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 const { blog_folder } = config.settingsacara;
-
+export const revalidate = 60
 // post single layout
 const Article = ({ post, authors, mdxContent, slug }) => {
   // console.warn(post[0]);

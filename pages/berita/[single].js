@@ -3,7 +3,7 @@ import PostSingle from "@layouts/PostSingle";
 import { getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 const { blog_folder } = config.settingsberita;
-
+export const revalidate = 60
 // post single layout
 const Article = ({ post, authors, mdxContent, slug }) => {
   return (
