@@ -11,7 +11,7 @@ const { blog_folder, pagination, chanel } = config.settingsyoutube;
 export const revalidate = 60
 
 // post single layout
-const Article = ({ postIndex, post, posts, pagination, slug }) => {
+const Article = ({ postIndex, post, posts, currentPage, pagination, slug }) => {
   const { frontmatter, content, contentapi } = postIndex;
   // console.log(posts);
   return (
@@ -21,6 +21,7 @@ const Article = ({ postIndex, post, posts, pagination, slug }) => {
       posts={posts}
       slug={slug}
       postindex={postIndex}
+      currentPage={currentPage}
       type="youtube"
     />
   );
@@ -49,6 +50,7 @@ export const getStaticProps = async ({ params }) => {
   //   console.log("jalan");
   console.log("blog_folder");
   const { single } = params;
+  const currentPage = 1
   const { pagination } = config.settingsyoutube;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
@@ -64,6 +66,7 @@ export const getStaticProps = async ({ params }) => {
       post: post,
       posts: posts,
       slug: single,
+      currentPage: currentPage,
       pagination: pagination,
     },
   };
