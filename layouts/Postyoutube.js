@@ -32,8 +32,8 @@ const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex })
                     ? post.map((vids, index) => (
                         <div key={index} className="col-12 mt-5">
                           <div className="shadow">
-                            <div class="flex flex-col md:flex-row">
-                              <div class="w-270 flex-initial">
+                            <div className="flex flex-col md:flex-row">
+                              <div className="w-270 flex-initial">
                                 <Image
                                   className="max-w-full rounded-lg"
                                   src={vids.img}
@@ -43,7 +43,7 @@ const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex })
                                   priority={true}
                                 />
                               </div>
-                              <div class="flex-1 pl-2 text-left">
+                              <div className="flex-1 pl-2 text-left">
                                 <a
                                   target="_blank"
                                   href={vids.url}

@@ -12,7 +12,7 @@ console.log(slug)
         <div className="flex flex-nowrap overflow-x-auto px-4">
           {posts.map((post, i) => (
             post.id == slug ? (
-              <div className="m-1 min-w-fit">
+              <div key={`key-${i}`} className="m-1 min-w-fit">
               <Link
                 className="btn btn-primary m-1 min-w-fit"
                 href={`/${type}/${post.id}`}
