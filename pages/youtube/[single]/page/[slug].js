@@ -14,9 +14,6 @@ const BlogPagination = ({ postIndex,post, posts, slug, currentPage, pagination }
   const { frontmatter, content, contentapi } = postIndex;
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
-// console.log(currentPage.slug)
-//   console.log("contentapi");
-//   console.log(contentapi);
   return (
     <PostYoutube
       frontmatter={frontmatter}
