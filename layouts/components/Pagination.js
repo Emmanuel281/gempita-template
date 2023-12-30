@@ -1,8 +1,25 @@
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import React from "react";
 
 const Pagination = ({ section, currentPage, totalPages }) => {
 
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+    
+    window.addEventListener('resize', handleResize);
+    
+    handleResize();
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  let content;
+  
   if (typeof currentPage == 'string') {
     currentPage = parseInt(currentPage)
   }
@@ -15,6 +32,18 @@ const Pagination = ({ section, currentPage, totalPages }) => {
   for (let i = 1; i <= totalPages; i++) {
     pageList.push(i);
   }
+
+  let adjacentPages = 1  
+  if (width > 768) {
+    adjacentPages = 3;
+  } else {
+    adjacentPages = 1;
+  }
+
+  const startPage = Math.max(currentPage - adjacentPages, 1);
+  const endPage = Math.min(currentPage + adjacentPages, totalPages); 
+
+  const pages = [...Array(endPage - startPage + 1).keys()].map(i => startPage + i);
 
   return (
     <>
@@ -68,7 +97,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
           )}
 
           {/* page index */}
-          {pageList.map((pagination, i) => (
+          {pages.map((pagination, i) => (
             <React.Fragment key={`page-${i}`}>
               {pagination === currentPage ? (
                 <span

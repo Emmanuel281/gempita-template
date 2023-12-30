@@ -8,7 +8,8 @@ import Postsyoutube from "@partials/Postsyoutube";
 import PostYoutube from "@layouts/Postyoutube";
 import Listvideo from "@partials/Listvideo";
 const { blog_folder } = config.settingsyoutube;
-export const revalidate = 60
+export const revalidate = 10
+export const dynamic = 'force-dynamic'
 // blog pagination
 const BlogPagination = ({ postIndex,post, posts, slug, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;

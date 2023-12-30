@@ -6,7 +6,7 @@ const Struktur = ({ data }) => {
   const { frontmatter } = data;
   const { title, info, visidanmisi } = frontmatter;
   const { contact_form_action } = config.params;
-  console.log(visidanmisi);
+  // console.log(visidanmisi);
   return (
     <section className="section">
       <div className="container">

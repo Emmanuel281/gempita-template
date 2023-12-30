@@ -3,7 +3,7 @@ import PostSingle from "@layouts/PostSingle";
 import { getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 const { blog_folder } = config.settingsberita;
-export const revalidate = 60
+export const revalidate = 10
 // post single layout
 const Article = ({ post, authors, mdxContent, slug }) => {
   return (
@@ -32,9 +32,9 @@ export const getStaticProps = async ({ params }) => {
   const posts = await getSingleData(
     `http://adm.gempitamilenial.org/service/news-public?start=${singles[0]}&count=${pagination}`
   );
-  console.log("posts")
-  console.log(posts)
-  console.log(posts)
+  // console.log("posts")
+  // console.log(posts)
+  // console.log(posts)
   const post = posts.data.filter((p) => p.id == singles[1]);
   const mdxContent = await parseMDX(post[0].description);
 
@@ -44,6 +44,7 @@ export const getStaticProps = async ({ params }) => {
       mdxContent: mdxContent,
       slug: single,
     },
+    revalidate: 1,
   };
 };
 

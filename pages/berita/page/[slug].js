@@ -6,7 +6,7 @@ import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 const { blog_folder } = config.settingsberita;
-export const revalidate = 60
+export const revalidate = 10
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
@@ -41,8 +41,8 @@ export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
     `http://adm.gempitamilenial.org/service/news-public?start=1&count=1`
   );
-  console.log("getAllSlug");
-  console.log(getAllSlug);
+  // console.log("getAllSlug");
+  // console.log(getAllSlug);
   // const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settingsberita;
   const totalPages = Math.ceil(getAllSlug.total_count / pagination);
@@ -55,8 +55,8 @@ export const getStaticPaths = async () => {
       },
     });
   }
-  console.log("totalPages")
-  console.log(totalPages)
+  // console.log("totalPages")
+  // console.log(totalPages)
   return {
     paths,
     fallback: false,
@@ -75,7 +75,7 @@ export const getStaticProps = async ({ params }) => {
     `content/${blog_folder}/_index.md`,
     `http://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
   );
-  console.log(postIndex)
+  // console.log(postIndex)
   const mdxContent = await parseMDX(postIndex.content);
 
   return {
@@ -85,5 +85,6 @@ export const getStaticProps = async ({ params }) => {
       postIndex: postIndex,
       mdxContent: mdxContent,
     },
+    revalidate: 1,
   };
 };

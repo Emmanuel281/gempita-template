@@ -71,8 +71,8 @@ export const getStaticPaths = async () => {
 // for regular page data
 export const getStaticProps = async ({ params }) => {
   const { regular } = params;
-  console.log("regular");
-  console.log(regular);
+  // console.log("regular");
+  // console.log(regular);
   const regularPage = await getRegularPage(regular);
 
   return {

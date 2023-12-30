@@ -12,7 +12,7 @@ const PostSingle = ({ frontmatter, mdxContent }) => {
   // console.warn(frontmatter)
 
   const convertEpochDate = (epochDate) => {
-    console.log(epochDate)
+    // console.log(epochDate)
 
     const epochInMilliseconds =
       epochDate > 9999999999 ? epochDate : epochDate * 1000;

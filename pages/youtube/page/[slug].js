@@ -2,21 +2,20 @@ import Pagination from "@components/Pagination";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
 import { getListPage, getSingleData } from "@lib/contentParser";
-import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Postsyoutube from "@partials/Postsyoutube";
-import PostYoutube from "@layouts/Postyoutube";
-import Listvideo from "@partials/Listvideo";
+import cbor from "cbor";
 const { blog_folder } = config.settingsyoutube;
-export const revalidate = 60
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
+  console.log("postindex")
+  console.log(postIndex)
 
-  console.log("contentapi");
-  console.log(contentapi);
+  // console.log("contentapi");
+  // console.log(contentapi);
   return (
     <Base title={title}>
       <section className="section">
@@ -46,6 +45,8 @@ export const getStaticPaths = async () => {
   const getAllSlug = await getSingleData(
     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
   );
+  console.log("getAllSlug");
+    console.log(getAllSlug);
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settingsyoutube;
   const totalPages = Math.ceil(allSlug.length / pagination);
@@ -61,7 +62,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
@@ -69,16 +70,16 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const currentPage = parseInt((params && params.slug) || 1);
   const { pagination } = config.settingsyoutube;
-  const postIndex = await getListPage(
+  let postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=${pagination}`
   );
-
   return {
     props: {
       pagination: pagination,
       currentPage: currentPage,
       postIndex: postIndex,
     },
+    revalidate: 1,
   };
 };

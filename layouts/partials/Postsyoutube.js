@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Postsyoutube = ({ posts, slug,  type }) => {
   const { blog_folder, summary_length } = config.settings;
-console.log(slug)
+// console.log(slug)
   return (
     <div className="section row pb-0">
       <div className="col-12">
