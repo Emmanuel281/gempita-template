@@ -35,13 +35,13 @@ export const getStaticPaths = async ({}) => {
   const allSlug = await getSingleData(
     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
   );
-  const paths = allSlug.data.map((item) => ({
+  const paths = allSlug.data.map((item, index) => ({
     params: {
       single: item.id,
-      slug: item.id,
+      slug: index.toString(),
     },
   }));
-  // console.log(paths);
+  console.log(paths);
   return {
     paths,
     fallback: "blocking",
