@@ -65,6 +65,8 @@ const Social = ({ source, className }) => {
     address,
     skype,
     website,
+    playstore,
+    appstore,
   } = source;
   return (
     <ul className={className}>
@@ -422,7 +424,7 @@ const Social = ({ source, className }) => {
         <li className="inline-block">
           <a
             aria-label="location"
-            href={address}
+            href={playstore}
             target="_blank"
             rel="noopener noreferrer nofollow"
           >
@@ -434,7 +436,7 @@ const Social = ({ source, className }) => {
         <li className="inline-block">
           <a
             aria-label="location"
-            href={address}
+            href={appstore}
             target="_blank"
             rel="noopener noreferrer nofollow"
           >
