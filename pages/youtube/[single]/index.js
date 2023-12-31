@@ -8,8 +8,8 @@ import Postsyoutube from "@partials/Postsyoutube";
 import PostYoutube from "@layouts/Postyoutube";
 import Listvideo from "@partials/Listvideo";
 const { blog_folder, pagination, chanel } = config.settingsyoutube;
-export const revalidate = 10
-export const dynamic = 'force-dynamic'
+export const revalidate = 10;
+export const dynamic = "force-dynamic";
 
 // post single layout
 const Article = ({ postIndex, post, posts, currentPage, pagination, slug }) => {
@@ -41,7 +41,7 @@ export const getStaticPaths = async ({}) => {
   // console.log(paths);
   return {
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 };
 
@@ -50,7 +50,7 @@ export const getStaticProps = async ({ params }) => {
   //   console.log("jalan");
   // console.log("blog_folder");
   const { single } = params;
-  const currentPage = 1
+  const currentPage = 1;
   const { pagination } = config.settingsyoutube;
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
@@ -59,8 +59,8 @@ export const getStaticProps = async ({ params }) => {
   const posts = await getSingleData(
     `http://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=1&count=20`
   );
-  console.log("postindex")
-  console.log(postIndex)
+  console.log("postindex");
+  console.log(postIndex);
   const post = posts.data.filter((p) => p.parentID == single);
   return {
     props: {
@@ -71,7 +71,7 @@ export const getStaticProps = async ({ params }) => {
       currentPage: currentPage,
       pagination: pagination,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };
 

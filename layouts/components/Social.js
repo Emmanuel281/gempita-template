@@ -29,6 +29,8 @@ import {
   IoLogoWhatsapp,
   IoLogoYoutube,
   IoMail,
+  IoLogoGooglePlaystore,
+  IoLogoAppleAppstore,
 } from "react-icons/io5";
 
 const Social = ({ source, className }) => {
@@ -413,6 +415,30 @@ const Social = ({ source, className }) => {
             rel="noopener noreferrer nofollow"
           >
             <IoLocation />
+          </a>
+        </li>
+      )}
+      {playstore && (
+        <li className="inline-block">
+          <a
+            aria-label="location"
+            href={address}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            <IoLogoGooglePlaystore />
+          </a>
+        </li>
+      )}
+      {appstore && (
+        <li className="inline-block">
+          <a
+            aria-label="location"
+            href={address}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            <IoLogoAppleAppstore />
           </a>
         </li>
       )}

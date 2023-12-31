@@ -11,8 +11,8 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
-  console.log("postindex")
-  console.log(postIndex)
+  console.log("postindex");
+  console.log(postIndex);
 
   // console.log("contentapi");
   // console.log(contentapi);
@@ -46,7 +46,7 @@ export const getStaticPaths = async () => {
     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
   );
   console.log("getAllSlug");
-    console.log(getAllSlug);
+  console.log(getAllSlug);
   const allSlug = getAllSlug.data.map((item) => item.slug);
   const { pagination } = config.settingsyoutube;
   const totalPages = Math.ceil(allSlug.length / pagination);
@@ -62,7 +62,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 };
 
@@ -80,6 +80,6 @@ export const getStaticProps = async ({ params }) => {
       currentPage: currentPage,
       postIndex: postIndex,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };

@@ -7,7 +7,7 @@ import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 const { blog_folder } = config.settingsacara;
-export const revalidate = 10
+export const revalidate = 10;
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
@@ -88,6 +88,6 @@ export const getStaticProps = async ({ params }) => {
       postIndex: postIndex,
       mdxContent: mdxContent,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };

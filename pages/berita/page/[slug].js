@@ -6,7 +6,7 @@ import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 const { blog_folder } = config.settingsberita;
-export const revalidate = 10
+export const revalidate = 10;
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
   const { frontmatter, content, contentapi } = postIndex;
@@ -22,7 +22,11 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Posts posts={contentapi.data} currentPage={currentPage} type="berita" />
+          <Posts
+            posts={contentapi.data}
+            currentPage={currentPage}
+            type="berita"
+          />
           <Pagination
             section={"berita"}
             totalPages={totalPages}
@@ -69,7 +73,7 @@ export const getStaticProps = async ({ params }) => {
   const { pagination } = config.settingsberita;
   let start = 1;
   if (currentPage > 1) {
-    start = (currentPage  * pagination) + 1;
+    start = currentPage * pagination + 1;
   }
   const postIndex = await getListPage(
     `content/${blog_folder}/_index.md`,
@@ -85,6 +89,6 @@ export const getStaticProps = async ({ params }) => {
       postIndex: postIndex,
       mdxContent: mdxContent,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };
