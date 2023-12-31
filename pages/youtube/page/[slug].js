@@ -1,21 +1,30 @@
-import Pagination from "@components/Pagination";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
-import { getListPage, getSingleData } from "@lib/contentParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Postsyoutube from "@partials/Postsyoutube";
-import cbor from "cbor";
+import Pagination from "@components/Pagination";
+import { getListPage, getSingleData } from "@lib/contentParser";
 const { blog_folder } = config.settingsyoutube;
 // blog pagination
 const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
+  const router = useRouter();
   const { frontmatter, content, contentapi } = postIndex;
   const totalPages = Math.ceil(contentapi.data.length / pagination);
   const { title } = frontmatter;
   console.log("postindex");
   console.log(postIndex);
 
-  // console.log("contentapi");
-  // console.log(contentapi);
+  useEffect(() => {
+    contentapi.data.map((item, index) => {
+      if ((item.channel_name = "GEMPITA MILENIAL")) {
+        router.push("/youtube/" + item.id);
+      }
+    });
+  }, []);
+
   return (
     <Base title={title}>
       <section className="section">
