@@ -32,6 +32,7 @@ import {
   IoLogoGooglePlaystore,
   IoLogoAppleAppstore,
 } from "react-icons/io5";
+import Image from "next/image";
 
 const Social = ({ source, className }) => {
   const {
@@ -417,30 +418,6 @@ const Social = ({ source, className }) => {
             rel="noopener noreferrer nofollow"
           >
             <IoLocation />
-          </a>
-        </li>
-      )}
-      {playstore && (
-        <li className="inline-block">
-          <a
-            aria-label="location"
-            href={playstore}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-          >
-            <IoLogoGooglePlaystore />
-          </a>
-        </li>
-      )}
-      {appstore && (
-        <li className="inline-block">
-          <a
-            aria-label="location"
-            href={appstore}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-          >
-            <IoLogoAppleAppstore />
           </a>
         </li>
       )}

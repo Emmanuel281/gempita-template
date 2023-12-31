@@ -42,6 +42,26 @@ const Footer = () => {
             </Link>
             {markdownify(footer_content, "p", "mt-3 mb-6")}
             <Social source={social} className="social-icons mb-8" />
+            <ul>
+              <li>
+                <a
+                  aria-label="location"
+                  href={social.playstore}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="contents h-[65px] w-[150px] p-1"
+                >
+                  <Image
+                    className=" rounded-lg"
+                    src={"/images/google-play-badge.png"}
+                    alt={"/images/google-play-badge.png"}
+                    width={143}
+                    height={60}
+                    priority={true}
+                  />
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         {/* copyright */}
