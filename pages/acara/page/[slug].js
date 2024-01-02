@@ -6,7 +6,8 @@ import { getListPage, getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import cbor from "cbor";
 const { blog_folder, pagination } = config.settingsacara;
 export const revalidate = 10;
 // blog pagination
@@ -19,28 +20,25 @@ const BlogPagination = () => {
   if (currentPage > 1) {
     start = (currentPage - 1) * pagination;
   }
-  console.log(router.query);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`, {
+      const response = await fetch(`https://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/cbor",
-          "responsetype": "arraybuffer",
         }})
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       const result = await response.arrayBuffer()
       const decoded = await cbor.decode(result)
-      setContentapi(decode)
+      setContentapi(decoded)
       console.warn(decoded);
       setTotalPages(Math.ceil(contentapi.data.length / pagination))
     }
  
     fetchData().catch((e) => {
-      // handle the error as needed
       console.error('An error occurred while fetching the data: ', e)
     })
   }, [])
