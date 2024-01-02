@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Pagination from "@components/Pagination";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
-import { getListPage, getSingleData } from "@lib/contentParser";
-import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 import { useRouter } from 'next/router';
