@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import cbor from "cbor";
 import Pagination from "@components/Pagination";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
-import { useRouter } from 'next/router';
-import cbor from "cbor";
 const { blog_folder, pagination } = config.settingsacara;
 export const revalidate = 10;
 // blog pagination
 const BlogPagination = () => {
   const router = useRouter();
-  const [contentapi, setContentapi] = useState({})
-  const [totalPages, setTotalPages] = useState(1)
+  const [contentapi, setContentapi] = useState({});
+  const [totalPages, setTotalPages] = useState(1);
   const currentPage = parseInt((router.query && router.query.slug) || 1);
   let start = 1;
   if (currentPage > 1) {
@@ -21,25 +21,29 @@ const BlogPagination = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/cbor",
-        }})
+      const response = await fetch(
+        `https://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/cbor",
+          },
+        }
+      );
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const result = await response.arrayBuffer()
-      const decoded = await cbor.decode(result)
-      setContentapi(decoded)
+      const result = await response.arrayBuffer();
+      const decoded = await cbor.decode(result);
+      setContentapi(decoded);
       console.warn(decoded);
-      setTotalPages(Math.ceil(contentapi.data.length / pagination))
-    }
- 
+      setTotalPages(Math.ceil(contentapi.data.length / pagination));
+    };
+
     fetchData().catch((e) => {
-      console.error('An error occurred while fetching the data: ', e)
-    })
-  }, [])
+      console.error("An error occurred while fetching the data: ", e);
+    });
+  }, []);
 
   console.log("contentapi");
   console.log(Object.keys(contentapi).length);
@@ -54,19 +58,20 @@ const BlogPagination = () => {
           )}
           {Object.keys(contentapi).length != 0 ? (
             <>
-            <Posts
-            posts={contentapi.data}
-            currentPage={currentPage}
-            type="acara"
-          />
-          <Pagination
-            section={blog_folder}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
-          </>
-          ) : ("Loading...")}
-          
+              <Posts
+                posts={contentapi.data}
+                currentPage={currentPage}
+                type="acara"
+              />
+              <Pagination
+                section={blog_folder}
+                totalPages={totalPages}
+                currentPage={currentPage}
+              />
+            </>
+          ) : (
+            "Loading..."
+          )}
         </div>
       </section>
     </Base>
