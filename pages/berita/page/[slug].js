@@ -1,3 +1,8 @@
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import cbor from "cbor";
 import Pagination from "@components/Pagination";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
@@ -5,33 +10,70 @@ import { getListPage, getSingleData } from "@lib/contentParser";
 import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
-const { blog_folder } = config.settingsberita;
-export const revalidate = 10;
+
+const { blog_folder, pagination } = config.settingsberita;
+const title = "Berita Terbaru";
+const mdxoptions = {
+  mdxOptions: {
+    development: process.env.NODE_ENV === "development",
+    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [remarkGfm],
+  },
+};
 // blog pagination
-const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
-  const { frontmatter, content, contentapi } = postIndex;
+const BlogPagination = () => {
+  // const { frontmatter, content, contentapi } = postIndex;
+  const router = useRouter();
+  const [contentapi, setContentapi] = useState({});
   const totalPages = Math.ceil(contentapi.total_count / pagination);
-  const { title } = frontmatter;
+  const currentPage = parseInt((router.query && router.query.slug) || 1);
+  let start = 1;
+  if (currentPage > 1) {
+    start = (currentPage - 1) * pagination;
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const result = await response.arrayBuffer();
+      const decoded = await cbor.decode(result);
+      setContentapi(decoded);
+    };
+    fetchData().catch((e) => {
+      console.error("An error occurred while fetching the data: ", e);
+    });
+  }, [router.pathname]);
 
   return (
     <Base title={title}>
       <section className="section">
         <div className="container">
           {markdownify(
-            "Berita Terbaru",
+            title,
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Posts
-            posts={contentapi.data}
-            currentPage={currentPage}
-            type="berita"
-          />
-          <Pagination
-            section={"berita"}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
+          {Object.keys(contentapi).length != 0 ? (
+            <>
+              <Posts
+                posts={contentapi.data}
+                currentPage={currentPage}
+                type="berita"
+              />
+              <Pagination
+                section={"berita"}
+                totalPages={totalPages}
+                currentPage={currentPage}
+              />
+            </>
+          ) : (
+            "Loading..."
+          )}
+          
         </div>
       </section>
     </Base>

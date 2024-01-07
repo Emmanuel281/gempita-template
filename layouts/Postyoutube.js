@@ -3,18 +3,22 @@ import config from "@config/config.json";
 import shortcodes from "@shortcodes/all";
 import { MDXRemote } from "next-mdx-remote";
 import Image from "next/image";
-import Base from "./Baseof";
 import Link from "next/link";
 import Postsyoutube from "@partials/Postsyoutube";
 import Pagination from "@components/Pagination";
 const { blog_folder, pagination } = config.settingsyoutube;
 
-const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex }) => {
-  let { description, title } = frontmatter;
+const PostYoutube = ({ title, post, posts, slug, currentPage, contentapi }) => {
   const totalPages = Math.ceil(posts.total_count / pagination);
   const url = `${blog_folder}/${slug}`
+  console.log("post");
+  console.log(post);
+  console.log("posts");
+  console.log(posts);
+  console.log("contentapi");
+  console.log(contentapi);
   return (
-    <Base title={title} description={description}>
+    
       <section className="section">
         <div className="container">
           {markdownify(
@@ -22,7 +26,7 @@ const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex })
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Postsyoutube posts={postindex.contentapi.data} slug={slug} type="youtube" />
+          <Postsyoutube posts={contentapi.data} slug={slug} type="youtube" />
           <hr></hr>
           <section>
             <div className="container">
@@ -73,7 +77,6 @@ const PostYoutube = ({ frontmatter, post, posts, slug, currentPage, postindex })
           />
         </div>
       </section>
-    </Base>
   );
 };
 

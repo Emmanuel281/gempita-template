@@ -18,17 +18,19 @@
   "settingsyoutube": {
     "pagination": 8,
     "summary_length": 300,
-    "blog_folder": "youtube"
+    "blog_folder": "youtube",
+    "title": "Video Terbaru",
+    "description": "youtube"
   },
 
   "settingsberita": {
-    "pagination": 8,
+    "pagination": 7,
     "summary_length": 300,
     "blog_folder": "berita"
   },
 
   "settingsacara": {
-    "pagination": 8,
+    "pagination": 7,
     "summary_length": 300,
     "blog_folder": "acara"
   },

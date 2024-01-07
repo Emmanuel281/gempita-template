@@ -29,13 +29,7 @@ const Article = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/cbor",
-          },
-        }
+        `https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -45,15 +39,10 @@ const Article = () => {
       console.log(
         `https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`
       );
-      // console.log(posts);
       const post = posts.data.filter((p) => p.id == singles[1]);
       const mdxContent = await serialize(post[0].description, mdxoptions);
-      // console.log(post[0]);
       setPost(post);
-      // console.log;
       setmdxContent(mdxContent);
-      // console.warn(typeof mdxContent);
-      // setTotalPages(Math.ceil(contentapi.data.length / pagination));
     };
 
     setTimeout(() => {
@@ -61,7 +50,7 @@ const Article = () => {
         console.error("An error occurred while fetching the data: ", e);
       });
     }, 1000);
-  }, []);
+  }, [router.pathname]);
 
   return Object.keys(post).length != 0 ||
     Object.keys(mdxContent).length != 0 ? (

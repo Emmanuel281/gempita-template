@@ -36,17 +36,14 @@ const BlogPagination = () => {
       const result = await response.arrayBuffer();
       const decoded = await cbor.decode(result);
       setContentapi(decoded);
-      console.warn(decoded);
       setTotalPages(Math.ceil(contentapi.data.length / pagination));
     };
 
     fetchData().catch((e) => {
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, []);
+  }, [router.pathname]);
 
-  console.log("contentapi");
-  console.log(Object.keys(contentapi).length);
   return (
     <Base title={"Acara Terbaru"}>
       <section className="section">
