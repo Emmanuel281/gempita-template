@@ -71,7 +71,9 @@ const Posts = ({ posts, type, currentPage }) => {
               <Image
                 className="h-auto w-full rounded-lg"
                 src={
-                  posts[0].img.length >= 1 ? posts[0].img : "/images/Mukadimah-530x356.jpg"
+                  posts[0].img.length >= 1
+                    ? posts[0].img
+                    : "/images/Mukadimah-530x356.jpg"
                 }
                 alt={"2"}
                 width={540}
@@ -104,17 +106,21 @@ const Posts = ({ posts, type, currentPage }) => {
             </h2>
             <p className="mb-2" style={{ fontSize: "1 rem" }}>
               {convertEpochDate(0)}{" "}
-              <span
-                style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  padding: "4px 8px",
-                  textAlign: "center",
-                  borderRadius: "5px",
-                }}
-              >
-                Terbaru
-              </span>
+              {currentPage == 1 ? (
+                <span
+                  style={{
+                    backgroundColor: "red",
+                    color: "white",
+                    padding: "4px 8px",
+                    textAlign: "center",
+                    borderRadius: "5px",
+                  }}
+                >
+                  Terbaru
+                </span>
+              ) : (
+                ""
+              )}
             </p>
 
             <h5 className="mb-4 mt-4 text-text">

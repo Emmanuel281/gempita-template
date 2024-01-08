@@ -52,11 +52,7 @@ const BlogPagination = () => {
     <Base title={title}>
       <section className="section">
         <div className="container">
-          {markdownify(
-            title,
-            "h1",
-            "h1 text-center font-normal text-[56px]"
-          )}
+          {markdownify(title, "h1", "h1 text-center font-normal text-[56px]")}
           {Object.keys(contentapi).length != 0 ? (
             <>
               <Posts
@@ -73,7 +69,6 @@ const BlogPagination = () => {
           ) : (
             "Loading..."
           )}
-          
         </div>
       </section>
     </Base>
@@ -83,54 +78,54 @@ const BlogPagination = () => {
 export default BlogPagination;
 
 // get blog pagination slug
-export const getStaticPaths = async () => {
-  const getAllSlug = await getSingleData(
-    `http://adm.gempitamilenial.org/service/news-public?start=1&count=1`
-  );
-  // console.log("getAllSlug");
-  // console.log(getAllSlug);
-  // const allSlug = getAllSlug.data.map((item) => item.slug);
-  const { pagination } = config.settingsberita;
-  const totalPages = Math.ceil(getAllSlug.total_count / pagination);
-  let paths = [];
+// export const getStaticPaths = async () => {
+//   const getAllSlug = await getSingleData(
+//     `http://adm.gempitamilenial.org/service/news-public?start=1&count=1`
+//   );
+//   // console.log("getAllSlug");
+//   // console.log(getAllSlug);
+//   // const allSlug = getAllSlug.data.map((item) => item.slug);
+//   const { pagination } = config.settingsberita;
+//   const totalPages = Math.ceil(getAllSlug.total_count / pagination);
+//   let paths = [];
 
-  for (let i = 1; i < totalPages; i++) {
-    paths.push({
-      params: {
-        slug: (i + 1).toString(),
-      },
-    });
-  }
-  // console.log("totalPages")
-  // console.log(totalPages)
-  return {
-    paths,
-    fallback: false,
-  };
-};
+//   for (let i = 1; i < totalPages; i++) {
+//     paths.push({
+//       params: {
+//         slug: (i + 1).toString(),
+//       },
+//     });
+//   }
+//   // console.log("totalPages")
+//   // console.log(totalPages)
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
 
-// get blog pagination content
-export const getStaticProps = async ({ params }) => {
-  const currentPage = parseInt((params && params.slug) || 1);
-  const { pagination } = config.settingsberita;
-  let start = 1;
-  if (currentPage > 1) {
-    start = currentPage * pagination + 1;
-  }
-  const postIndex = await getListPage(
-    `content/${blog_folder}/_index.md`,
-    `http://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
-  );
-  // console.log(postIndex)
-  const mdxContent = await parseMDX(postIndex.content);
+// // get blog pagination content
+// export const getStaticProps = async ({ params }) => {
+//   const currentPage = parseInt((params && params.slug) || 1);
+//   const { pagination } = config.settingsberita;
+//   let start = 1;
+//   if (currentPage > 1) {
+//     start = currentPage * pagination + 1;
+//   }
+//   const postIndex = await getListPage(
+//     `content/${blog_folder}/_index.md`,
+//     `http://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
+//   );
+//   // console.log(postIndex)
+//   const mdxContent = await parseMDX(postIndex.content);
 
-  return {
-    props: {
-      pagination: pagination,
-      currentPage: currentPage,
-      postIndex: postIndex,
-      mdxContent: mdxContent,
-    },
-    revalidate: 10,
-  };
-};
+//   return {
+//     props: {
+//       pagination: pagination,
+//       currentPage: currentPage,
+//       postIndex: postIndex,
+//       mdxContent: mdxContent,
+//     },
+//     revalidate: 10,
+//   };
+// };
