@@ -2,15 +2,11 @@ import config from "@config/config.json";
 import { markdownify } from "@lib/utils/textConverter";
 import Image from "next/image";
 
-const Maknalogo = ({ data }) => {
-  const { frontmatter } = data;
-  const { title, info } = frontmatter;
-  const { contact_form_action } = config.params;
-
+const Maknalogo = () => {
   return (
     <section className="section">
       <div className="container">
-        {markdownify(title, "h1", "text-center font-normal")}
+        {markdownify("Makna Logo", "h1", "text-center font-normal")}
         <br />
         <table>
           <tr>

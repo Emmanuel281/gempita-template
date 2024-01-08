@@ -3,27 +3,35 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
+import cbor from "cbor";
 import { markdownify } from "@lib/utils/textConverter";
-import Postsyoutube from "@partials/Postsyoutube";
-import Pagination from "@components/Pagination";
-import { getListPage, getSingleData } from "@lib/contentParser";
-const { blog_folder } = config.settingsyoutube;
+const title = "video Terbaru";
 // blog pagination
-const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
+const BlogPagination = () => {
   const router = useRouter();
-  const { frontmatter, content, contentapi } = postIndex;
-  const totalPages = Math.ceil(contentapi.data.length / pagination);
-  const { title } = frontmatter;
-  console.log("postindex");
-  console.log(postIndex);
-
   useEffect(() => {
-    contentapi.data.map((item, index) => {
-      if ((item.channel_name = "GEMPITA MILENIAL")) {
-        router.push("/youtube/" + item.id);
+    const fetchDataChanel = async () => {
+      const response = await fetch(
+        `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
-  }, []);
+      const result = await response.arrayBuffer();
+      const posts = await cbor.decode(result);
+      posts.data.map((item, index) => {
+        if ((item.channel_name = "GEMPITA MILENIAL")) {
+          router.push("/youtube/" + item.id);
+        }
+      });
+    };
+
+    setTimeout(() => {
+      fetchDataChanel().catch((e) => {
+        console.error("An error occurred while fetching the data: ", e);
+      });
+    }, 1000);
+  }, [router.pathname]);
 
   return (
     <Base title={title}>
@@ -34,13 +42,6 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          <Postsyoutube posts={contentapi.data} type="youtube" />
-          {/* <PostYoutube posts={contentapi.data} type="youtube" /> */}
-          <Pagination
-            section={blog_folder}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
         </div>
       </section>
     </Base>
@@ -50,45 +51,45 @@ const BlogPagination = ({ postIndex, posts, currentPage, pagination }) => {
 export default BlogPagination;
 
 // get blog pagination slug
-export const getStaticPaths = async () => {
-  const getAllSlug = await getSingleData(
-    `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
-  );
-  console.log("getAllSlug");
-  console.log(getAllSlug);
-  const allSlug = getAllSlug.data.map((item) => item.slug);
-  const { pagination } = config.settingsyoutube;
-  const totalPages = Math.ceil(allSlug.length / pagination);
-  let paths = [];
+// export const getStaticPaths = async () => {
+//   const getAllSlug = await getSingleData(
+//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
+//   );
+//   console.log("getAllSlug");
+//   console.log(getAllSlug);
+//   const allSlug = getAllSlug.data.map((item) => item.slug);
+//   const { pagination } = config.settingsyoutube;
+//   const totalPages = Math.ceil(allSlug.length / pagination);
+//   let paths = [];
 
-  for (let i = 1; i < totalPages; i++) {
-    paths.push({
-      params: {
-        slug: (i + 1).toString(),
-      },
-    });
-  }
+//   for (let i = 1; i < totalPages; i++) {
+//     paths.push({
+//       params: {
+//         slug: (i + 1).toString(),
+//       },
+//     });
+//   }
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
 
-// get blog pagination content
-export const getStaticProps = async ({ params }) => {
-  const currentPage = parseInt((params && params.slug) || 1);
-  const { pagination } = config.settingsyoutube;
-  let postIndex = await getListPage(
-    `content/${blog_folder}/_index.md`,
-    `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=${pagination}`
-  );
-  return {
-    props: {
-      pagination: pagination,
-      currentPage: currentPage,
-      postIndex: postIndex,
-    },
-    revalidate: 10,
-  };
-};
+// // get blog pagination content
+// export const getStaticProps = async ({ params }) => {
+//   const currentPage = parseInt((params && params.slug) || 1);
+//   const { pagination } = config.settingsyoutube;
+//   let postIndex = await getListPage(
+//     `content/${blog_folder}/_index.md`,
+//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=${pagination}`
+//   );
+//   return {
+//     props: {
+//       pagination: pagination,
+//       currentPage: currentPage,
+//       postIndex: postIndex,
+//     },
+//     revalidate: 10,
+//   };
+// };

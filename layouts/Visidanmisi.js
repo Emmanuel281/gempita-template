@@ -1,17 +1,13 @@
 import config from "@config/config.json";
+import configvisimisi from "@config/visimisi.json";
 import { markdownify } from "@lib/utils/textConverter";
-import Image from "next/image";
 
-const Struktur = ({ data }) => {
-  const { frontmatter } = data;
-  const { title, info, visidanmisi } = frontmatter;
-  const { contact_form_action } = config.params;
-  // console.log(visidanmisi);
+const Struktur = () => {
   return (
     <section className="section">
       <div className="container">
-        {markdownify(title, "h1", "text-center font-normal")}
-        {visidanmisi.map((item, i) => {
+        {markdownify(configvisimisi.title, "h1", "text-center font-normal")}
+        {configvisimisi.visidanmisi.map((item, i) => {
           return (
             <div className="mt-10">
               {markdownify(item.title, "h4", "text-center")}
@@ -25,16 +21,6 @@ const Struktur = ({ data }) => {
       </div>
     </section>
   );
-};
-
-export const getStaticProps = async () => {
-  const homePage = await getListPage("content/visidanmisi.md");
-  const { frontmatter } = homePage;
-  return {
-    props: {
-      frontmatter,
-    },
-  };
 };
 
 export default Struktur;

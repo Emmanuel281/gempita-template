@@ -1,16 +1,13 @@
-import config from "@config/config.json";
+import configstruktur from "@config/struktu.json";
 import { markdownify } from "@lib/utils/textConverter";
-import Image from "next/image";
 
-const Struktur = ({ data }) => {
-  const { frontmatter } = data;
-  const { title, info, strukturs } = frontmatter;
-  const { contact_form_action } = config.params;
+const Struktur = () => {
+  const strukturs = configstruktur;
   return (
     <section className="section">
       <div className="container">
-        {markdownify(title, "h1", "text-center font-normal")}
-        {strukturs.map((item, i) => {
+        {markdownify(strukturs.title, "h1", "text-center font-normal")}
+        {strukturs.strukturs.map((item, i) => {
           return (
             <div className="mt-10">
               {markdownify(item.title, "h4", "text-center font-normal")}
@@ -24,16 +21,6 @@ const Struktur = ({ data }) => {
       </div>
     </section>
   );
-};
-
-export const getStaticProps = async () => {
-  const homePage = await getListPage("content/struktur.md");
-  const { frontmatter } = homePage;
-  return {
-    props: {
-      frontmatter,
-    },
-  };
 };
 
 export default Struktur;

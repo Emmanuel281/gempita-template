@@ -5,8 +5,7 @@ import config from "@config/config.json";
 import PostYoutube from "@layouts/Postyoutube";
 import Base from "@layouts/Baseof";
 const { blog_folder, pagination, chanel, title } = config.settingsyoutube;
-let single = {}
-
+let single = {};
 
 // post single layout
 const Article = () => {
@@ -15,8 +14,8 @@ const Article = () => {
   const [contentapi, setContentapi] = useState({});
   const [post, setPost] = useState({});
   const [posts, setPosts] = useState({});
-  const currentPage = 1
-  single = router.query
+  const currentPage = 1;
+  single = router.query;
   useEffect(() => {
     const fetchDataChanel = async () => {
       const response = await fetch(
@@ -54,10 +53,12 @@ const Article = () => {
   }, [router.pathname]);
 
   return (
-    <Base title={title}>{Object.keys(post).length != 0 ||
-      Object.keys(posts).length != 0 ? (
+    <Base title={title}>
+      {Object.keys(post).length != 0 &&
+      Object.keys(posts).length != 0 &&
+      Object.keys(contentapi).length != 0 ? (
         <PostYoutube
-        title={title}
+          title={title}
           post={post}
           posts={posts}
           slug={single.single}
@@ -65,12 +66,11 @@ const Article = () => {
           currentPage={currentPage}
           type="youtube"
         />
-    ) : (
-      "Loading..."
-    )}</Base>
-  )
-    
-
+      ) : (
+        "Loading..."
+      )}
+    </Base>
+  );
 };
 
 // get post single slug

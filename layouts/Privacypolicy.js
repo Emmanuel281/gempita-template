@@ -1,16 +1,13 @@
-import config from "@config/config.json";
+import config from "@config/privacypolicy.json";
 import { markdownify } from "@lib/utils/textConverter";
 import Image from "next/image";
 
-const Privacypolicies = ({ data }) => {
-  const { frontmatter } = data;
-  const { title, info, visidanmisi } = frontmatter;
-  const { contact_form_action } = config.params;
+const Privacypolicies = () => {
   return (
     <section className="section">
       <div className="container">
-        {markdownify(title, "h1", "text-center font-normal")}
-        {visidanmisi.map((item, i) => {
+        {markdownify(config.title, "h1", "text-center font-normal")}
+        {config.privacypolicy.map((item, i) => {
           return (
             <div className="mt-10">
               {markdownify(item.title, "h3", "text-center font-normal")}
