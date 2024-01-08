@@ -28,7 +28,7 @@ const Article = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/news-public?start=${singles[0]}&count=${pagination}`
+        `https://adm.gempitamilenial.org/service/news-public?start=${singles[0]}&count=${pagination}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

@@ -9,8 +9,8 @@ import Base from "@layouts/Baseof";
 export const revalidate = 10;
 export const dynamic = "force-dynamic";
 const { blog_folder, pagination, title } = config.settingsyoutube;
-let single = {}
-let start = 1
+let single = {};
+let start = 1;
 
 // blog pagination
 const BlogPagination = () => {
@@ -19,30 +19,30 @@ const BlogPagination = () => {
   const [contentapi, setContentapi] = useState({});
   const [post, setPost] = useState({});
   const [posts, setPosts] = useState({});
-  const currentPage = 1
-  single = router.query
+  const currentPage = 1;
+  single = router.query;
   if (single.slug) {
     start = single.slug * pagination + 1;
   }
   useEffect(() => {
     const fetchDataChanel = async () => {
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+        `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
       );
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`https error! status: ${response.status}`);
       }
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
       setContentapi(posts);
     };
     const fetchDataVideo = async () => {
-      console.log(start)
+      console.log(start);
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=${start}&count=${pagination}`
+        `https://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=${start}&count=${pagination}`
       );
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`https error! status: ${response.status}`);
       }
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
@@ -61,10 +61,10 @@ const BlogPagination = () => {
     }, 1000);
   }, [router.pathname]);
   return (
-    <Base title={title}>{Object.keys(post).length != 0 ||
-      Object.keys(posts).length != 0 ? (
+    <Base title={title}>
+      {Object.keys(post).length != 0 || Object.keys(posts).length != 0 ? (
         <PostYoutube
-        title={title}
+          title={title}
           post={post}
           posts={posts}
           slug={single.single}
@@ -72,9 +72,10 @@ const BlogPagination = () => {
           currentPage={single.slug}
           type="youtube"
         />
-    ) : (
-      "Loading..."
-    )}</Base>
+      ) : (
+        "Loading..."
+      )}
+    </Base>
   );
 };
 
@@ -82,7 +83,7 @@ export default BlogPagination;
 
 // export const getStaticPaths = async ({}) => {
 //   const allSlug = await getSingleData(
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
 //   );
 //   const paths = allSlug.data.map((item, index) => ({
 //     params: {
@@ -104,10 +105,10 @@ export default BlogPagination;
 //   const start = slug * pagination + 1;
 //   const postIndex = await getListPage(
 //     `content/${blog_folder}/_index.md`,
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
 //   );
 //   const posts = await getSingleData(
-//     `http://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=${start}&count=${pagination}`
+//     `https://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=${start}&count=${pagination}`
 //   );
 //   const post = posts.data.filter((p) => p.parentID == single);
 //   return {
@@ -129,10 +130,10 @@ export default BlogPagination;
 //   const start = (slug *  pagination) + 1
 //   const postIndex = await getListPage(
 //     `content/${blog_folder}/_index.md`,
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
 //   );
 //   const posts = await getSingleData(
-//     `http://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=${start}&count=${pagination}`
+//     `https://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=${start}&count=${pagination}`
 //   );
 //   const post = posts.data.filter((p) => p.parentID == single);
 //   return {

@@ -12,10 +12,10 @@ const BlogPagination = () => {
   useEffect(() => {
     const fetchDataChanel = async () => {
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+        `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
       );
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`https error! status: ${response.status}`);
       }
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
@@ -53,7 +53,7 @@ export default BlogPagination;
 // get blog pagination slug
 // export const getStaticPaths = async () => {
 //   const getAllSlug = await getSingleData(
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=1`
 //   );
 //   console.log("getAllSlug");
 //   console.log(getAllSlug);
@@ -82,7 +82,7 @@ export default BlogPagination;
 //   const { pagination } = config.settingsyoutube;
 //   let postIndex = await getListPage(
 //     `content/${blog_folder}/_index.md`,
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=${pagination}`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=${pagination}`
 //   );
 //   return {
 //     props: {

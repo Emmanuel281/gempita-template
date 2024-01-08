@@ -34,7 +34,7 @@ const BlogPagination = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
+        `https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

@@ -19,10 +19,10 @@ const Article = () => {
   useEffect(() => {
     const fetchDataChanel = async () => {
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+        `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
       );
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`https error! status: ${response.status}`);
       }
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
@@ -30,10 +30,10 @@ const Article = () => {
     };
     const fetchDataVideo = async () => {
       const response = await fetch(
-        `http://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=1&count=${pagination}`
+        `https://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=1&count=${pagination}`
       );
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`https error! status: ${response.status}`);
       }
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
@@ -76,7 +76,7 @@ const Article = () => {
 // get post single slug
 // export const getStaticPaths = async ({}) => {
 //   const allSlug = await getSingleData(
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
 //   );
 //   const paths = allSlug.data.map((item) => ({
 //     params: {
@@ -99,10 +99,10 @@ const Article = () => {
 //   const { pagination } = config.settingsyoutube;
 //   const postIndex = await getListPage(
 //     `content/${blog_folder}/_index.md`,
-//     `http://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+//     `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
 //   );
 //   const posts = await getSingleData(
-//     `http://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=1&count=20`
+//     `https://adm.gempitamilenial.org/service/youtube-video-public/${single}?start=1&count=20`
 //   );
 //   console.log("postindex");
 //   console.log(postIndex);
