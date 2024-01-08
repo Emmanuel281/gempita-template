@@ -51,7 +51,6 @@ const PostSingle = ({ frontmatter, mdxContent }) => {
   };
 
   return (
-    <Base title={title} description={description}>
       <section className="section">
         <div className="container">
           <div className="row">
@@ -78,7 +77,6 @@ const PostSingle = ({ frontmatter, mdxContent }) => {
           </div>
         </div>
       </section>
-    </Base>
   );
 };
 

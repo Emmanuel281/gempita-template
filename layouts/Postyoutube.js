@@ -1,9 +1,6 @@
 import { markdownify, plainify, humanize } from "@lib/utils/textConverter";
 import config from "@config/config.json";
-import shortcodes from "@shortcodes/all";
-import { MDXRemote } from "next-mdx-remote";
 import Image from "next/image";
-import Link from "next/link";
 import Postsyoutube from "@partials/Postsyoutube";
 import Pagination from "@components/Pagination";
 const { blog_folder, pagination } = config.settingsyoutube;
@@ -11,12 +8,12 @@ const { blog_folder, pagination } = config.settingsyoutube;
 const PostYoutube = ({ title, post, posts, slug, currentPage, contentapi }) => {
   const totalPages = Math.ceil(posts.total_count / pagination);
   const url = `${blog_folder}/${slug}`
-  console.log("post");
-  console.log(post);
-  console.log("posts");
-  console.log(posts);
-  console.log("contentapi");
-  console.log(contentapi);
+  // console.log("post");
+  // console.log(post);
+  // console.log("posts");
+  // console.log(posts);
+  // console.log("contentapi");
+  // console.log(contentapi);
   return (
     
       <section className="section">

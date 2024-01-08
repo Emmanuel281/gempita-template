@@ -6,6 +6,7 @@ import config from "@config/config.json";
 import Base from "@layouts/Baseof";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
+import { Oval } from 'react-loader-spinner'
 const { blog_folder, pagination } = config.settingsacara;
 export const revalidate = 10;
 // blog pagination
@@ -42,7 +43,7 @@ const BlogPagination = () => {
     fetchData().catch((e) => {
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [router.pathname]);
+  }, [router.query.slug]);
 
   return (
     <Base title={"Acara Terbaru"}>
@@ -67,7 +68,16 @@ const BlogPagination = () => {
               />
             </>
           ) : (
-            "Loading..."
+            <Oval
+  visible={true}
+  height="50"
+  width="50"
+  color="#e00000"
+  secondaryColor="#808080"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass="text-center"
+  />
           )}
         </div>
       </section>

@@ -9,7 +9,7 @@ const Maknalogo = ({ data }) => {
   const { title, info } = frontmatter;
   const { contact_form_action } = config.params;
 
-  console.warn(image.photos);
+  // console.warn(image.photos);
 
   return (
     <section className="section">

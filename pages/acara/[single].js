@@ -6,6 +6,8 @@ import PostAcara from "@layouts/Postacara";
 import { serialize } from "next-mdx-remote/serialize";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import Base from "@layouts/Baseof";
+import { Oval } from 'react-loader-spinner'
 const { blog_folder, pagination } = config.settingsacara;
 export const revalidate = 10;
 let singles = {};
@@ -36,23 +38,20 @@ const Article = () => {
       }
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
-      console.log(
-        `https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`
-      );
       const post = posts.data.filter((p) => p.id == singles[1]);
       const mdxContent = await serialize(post[0].description, mdxoptions);
       setPost(post);
       setmdxContent(mdxContent);
     };
 
-    setTimeout(() => {
       fetchData().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
-    }, 1000);
-  }, [router.pathname]);
+  }, [router.query.single]);
 
-  return Object.keys(post).length != 0 ||
+  return( 
+    <Base title={"acarasingle"}>
+    {Object.keys(post).length != 0 &&
     Object.keys(mdxContent).length != 0 ? (
     <PostAcara
       frontmatter={post[0]}
@@ -60,8 +59,19 @@ const Article = () => {
       slug={router.query.single}
     />
   ) : (
-    "Loading..."
-  );
+    <Oval
+  visible={true}
+  height="50"
+  width="50"
+  color="#e00000"
+  secondaryColor="#808080"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass="text-center"
+  />
+  )}
+  </Base>
+  )
 };
 
 // get post single slug

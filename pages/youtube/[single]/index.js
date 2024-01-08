@@ -4,6 +4,8 @@ import cbor from "cbor";
 import config from "@config/config.json";
 import PostYoutube from "@layouts/Postyoutube";
 import Base from "@layouts/Baseof";
+import { markdownify } from "@lib/utils/textConverter";
+import { Oval } from 'react-loader-spinner'
 const { blog_folder, pagination, chanel, title } = config.settingsyoutube;
 let single = {};
 
@@ -42,15 +44,13 @@ const Article = () => {
       setPosts(posts);
     };
 
-    setTimeout(() => {
       fetchDataChanel().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
       fetchDataVideo().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
-    }, 1000);
-  }, [router.pathname]);
+  }, [router.query.single]);
 
   return (
     <Base title={title}>
@@ -67,7 +67,23 @@ const Article = () => {
           type="youtube"
         />
       ) : (
-        "Loading..."
+        <section className="section">
+          {markdownify(
+          "Video Youtube Terbaru",
+          "h1",
+          "h1 text-center font-normal text-[56px]"
+        )}
+        <Oval
+  visible={true}
+  height="50"
+  width="50"
+  color="#e00000"
+  secondaryColor="#808080"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass="text-center"
+  />
+          </section>
       )}
     </Base>
   );

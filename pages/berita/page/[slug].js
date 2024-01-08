@@ -6,10 +6,9 @@ import cbor from "cbor";
 import Pagination from "@components/Pagination";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
-import { getListPage, getSingleData } from "@lib/contentParser";
-import { parseMDX } from "@lib/utils/mdxParser";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
+import { Oval } from 'react-loader-spinner'
 
 const { blog_folder, pagination } = config.settingsberita;
 const title = "Berita Terbaru";
@@ -46,7 +45,7 @@ const BlogPagination = () => {
     fetchData().catch((e) => {
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [router.pathname]);
+  }, [router.query.slug]);
 
   return (
     <Base title={title}>
@@ -67,7 +66,16 @@ const BlogPagination = () => {
               />
             </>
           ) : (
-            "Loading..."
+            <Oval
+  visible={true}
+  height="50"
+  width="50"
+  color="#e00000"
+  secondaryColor="#808080"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass="text-center"
+  />
           )}
         </div>
       </section>

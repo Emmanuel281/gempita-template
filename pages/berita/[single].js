@@ -6,6 +6,8 @@ import remarkGfm from "remark-gfm";
 import config from "@config/config.json";
 import PostSingle from "@layouts/PostSingle";
 import { serialize } from "next-mdx-remote/serialize";
+import { Oval } from 'react-loader-spinner'
+import Base from "@layouts/Baseof";
 const { blog_folder, pagination } = config.settingsberita;
 let singles = {};
 const mdxoptions = {
@@ -41,14 +43,14 @@ const Article = () => {
       setmdxContent(mdxContent);
     };
 
-    setTimeout(() => {
       fetchData().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
-    }, 1000);
-  }, [router.pathname]);
+  }, [router.query.single]);
 
-  return Object.keys(post).length != 0 ||
+  return (
+    <Base title={"berita"}>
+    {Object.keys(post).length != 0 &&
   Object.keys(mdxContent).length != 0 ? (
     <PostSingle
     frontmatter={post[0]}
@@ -56,8 +58,19 @@ const Article = () => {
     slug={singles[0]}
   />
 ) : (
-  "Loading..."
-);
+  <Oval
+  visible={true}
+  height="50"
+  width="50"
+  color="#e00000"
+  secondaryColor="#808080"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass="text-center"
+  />
+)}
+
+</Base>)
 };
 
 // get post single slug

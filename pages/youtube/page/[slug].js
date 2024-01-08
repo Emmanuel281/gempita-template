@@ -26,11 +26,9 @@ const BlogPagination = () => {
       });
     };
 
-    setTimeout(() => {
       fetchDataChanel().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
-    }, 1000);
   }, [router.pathname]);
 
   return (

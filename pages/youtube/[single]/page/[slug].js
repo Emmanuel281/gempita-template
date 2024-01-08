@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import cbor from "cbor";
 import config from "@config/config.json";
-import { getListPage, getSingleData } from "@lib/contentParser";
 import PostYoutube from "@layouts/Postyoutube";
 import Base from "@layouts/Baseof";
+import { markdownify } from "@lib/utils/textConverter";
+import { Oval } from 'react-loader-spinner'
 
 export const revalidate = 10;
 export const dynamic = "force-dynamic";
@@ -37,7 +38,7 @@ const BlogPagination = () => {
       setContentapi(posts);
     };
     const fetchDataVideo = async () => {
-      console.log(start);
+      // console.log(start);
       const response = await fetch(
         `https://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=${start}&count=${pagination}`
       );
@@ -51,18 +52,17 @@ const BlogPagination = () => {
       setPosts(posts);
     };
 
-    setTimeout(() => {
       fetchDataChanel().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
       fetchDataVideo().catch((e) => {
         console.error("An error occurred while fetching the data: ", e);
       });
-    }, 1000);
-  }, [router.pathname]);
+
+  }, [router.query.slug]);
   return (
     <Base title={title}>
-      {Object.keys(post).length != 0 || Object.keys(posts).length != 0 ? (
+      {Object.keys(post).length != 0 && Object.keys(posts).length != 0 ? (
         <PostYoutube
           title={title}
           post={post}
@@ -73,7 +73,23 @@ const BlogPagination = () => {
           type="youtube"
         />
       ) : (
-        "Loading..."
+        <section className="section">
+          {markdownify(
+          "Video Youtube Terbaru",
+          "h1",
+          "h1 text-center font-normal text-[56px]"
+        )}
+        <Oval
+  visible={true}
+  height="50"
+  width="50"
+  color="#e00000"
+  secondaryColor="#808080"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass="text-center"
+  />
+          </section>
       )}
     </Base>
   );

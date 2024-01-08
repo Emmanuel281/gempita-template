@@ -2,10 +2,10 @@ import { markdownify } from "@lib/utils/textConverter";
 import shortcodes from "@shortcodes/all";
 import { MDXRemote } from "next-mdx-remote";
 import Image from "next/image";
-import Base from "./Baseof";
+
 
 const PostAcara = ({ frontmatter, mdxContent }) => {
-  console.log(frontmatter);
+  // console.log(frontmatter);
   let {
     description,
     title,
@@ -36,7 +36,7 @@ const PostAcara = ({ frontmatter, mdxContent }) => {
   };
 
   return (
-    <Base title={title} description={description}>
+
       <section className="section">
         <div className="container">
           <div className="row">
@@ -83,7 +83,6 @@ const PostAcara = ({ frontmatter, mdxContent }) => {
           </div>
         </div>
       </section>
-    </Base>
   );
 };
 
