@@ -3,25 +3,24 @@ import { useState, useEffect } from "react";
 import React from "react";
 
 const Pagination = ({ section, currentPage, totalPages }) => {
-
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
     }
-    
-    window.addEventListener('resize', handleResize);
-    
+
+    window.addEventListener("resize", handleResize);
+
     handleResize();
-    
-    return () => window.removeEventListener('resize', handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   let content;
-  
-  if (typeof currentPage == 'string') {
-    currentPage = parseInt(currentPage)
+
+  if (typeof currentPage == "string") {
+    currentPage = parseInt(currentPage);
   }
 
   const indexPageLink = currentPage === 2;
@@ -33,7 +32,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
     pageList.push(i);
   }
 
-  let adjacentPages = 1  
+  let adjacentPages = 1;
   if (width > 768) {
     adjacentPages = 3;
   } else {
@@ -41,9 +40,11 @@ const Pagination = ({ section, currentPage, totalPages }) => {
   }
 
   const startPage = Math.max(currentPage - adjacentPages, 1);
-  const endPage = Math.min(currentPage + adjacentPages, totalPages); 
+  const endPage = Math.min(currentPage + adjacentPages, totalPages);
 
-  const pages = [...Array(endPage - startPage + 1).keys()].map(i => startPage + i);
+  const pages = [...Array(endPage - startPage + 1).keys()].map(
+    (i) => startPage + i
+  );
 
   return (
     <>
@@ -64,7 +65,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
             >
               <span className="sr-only">Previous</span>
               <svg
-                className="mt-1 h-5 w-5 mb-0"
+                className="mb-0 mt-1 h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -81,7 +82,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
             <span className="inline-flex w-[42px] justify-center rounded-md bg-theme-light px-2 py-2 text-dark">
               <span className="sr-only">Previous</span>
               <svg
-                className="mt-1 h-5 w-5 mb-0"
+                className="mb-0 mt-1 h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -110,7 +111,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
                 <Link
                   legacyBehavior={true}
                   href={
-                    i === 0
+                    pagination === 1
                       ? `${section ? "/" + section : "/"}`
                       : `${section ? "/" + section : ""}/page/${pagination}`
                   }
@@ -135,7 +136,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
             >
               <span className="sr-only">Next</span>
               <svg
-                className="mt-1 h-5 w-5 mb-0"
+                className="mb-0 mt-1 h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -152,7 +153,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
             <span className="inline-flex w-[42px] justify-center rounded-md bg-theme-light px-2 py-2 text-dark">
               <span className="sr-only">Next</span>
               <svg
-                className="mt-1 h-5 w-5 mb-0"
+                className="mb-0 mt-1 h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
