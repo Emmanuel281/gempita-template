@@ -27,6 +27,10 @@
     {
       "name": "Visi dan Misi",
       "url": "/visimisi"
+    },
+    {
+      "name": "Galeri",
+      "url": "/galeri"
     }
   ],
   "footer": [
@@ -61,6 +65,10 @@
         {
           "text": "Youtube",
           "url": "/youtube"
+        },
+        {
+          "text": "Galeri",
+          "url": "/galeri"
         }
       ]
     },

@@ -32,6 +32,8 @@ const RegularPages = () => {
             <Visidanmisi />
           ) : layout === "privacypolicy" ? (
             <Privacypolicies />
+          ) : layout === "galeri" ? (
+            <Galeri />
           ) : (
             <NotFound />
           )}
