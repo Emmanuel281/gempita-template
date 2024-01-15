@@ -6,7 +6,7 @@ import image from "@config/image.json";
 import { markdownify } from "@lib/utils/textConverter";
 import Image from "next/image";
 import ImgContainer from "./ImgContainer";
-import { Oval } from 'react-loader-spinner'
+import { Oval } from "react-loader-spinner";
 const title = "Galeri";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,9 +29,9 @@ const Maknalogo = ({ data }) => {
       setPost(posts);
     };
 
-      fetchData().catch((e) => {
-        console.error("An error occurred while fetching the data: ", e);
-      });
+    fetchData().catch((e) => {
+      console.error("An error occurred while fetching the data: ", e);
+    });
   }, []);
 
   const convertEpochDate = (arrayindex) => {
@@ -73,16 +73,23 @@ const Maknalogo = ({ data }) => {
     // return date.toISOString();
   };
 
-  return( 
+  return (
     <section className="section">
       <div className="container">
         {markdownify(title, "h1", "text-center font-normal")}
         <br></br>
         {Object.keys(post).length != 0 ? (
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 justify-items-center">
+          <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {post.data.map((posts, index) => (
-              <div className="shadow rounded-md w-full">
-                <div className="order-2 swiper-container" style={{"maxWidth":"100vw","width":"100%","overflow":"hidden"}}>
+              <div className="w-full rounded-md shadow">
+                <div
+                  className="swiper-container order-2"
+                  style={{
+                    maxWidth: "90vw",
+                    width: "100%",
+                    overflow: "hidden",
+                  }}
+                >
                   <Swiper
                     modules={[Autoplay, Pagination]}
                     slidesPerView={1}
@@ -91,27 +98,38 @@ const Maknalogo = ({ data }) => {
                       disableOnInteraction: false,
                     }}
                     pagination={{ clickable: true }}
-                  >                  
-                    {Object.keys(posts).map(function(key, index) {
+                  >
+                    {Object.keys(posts).map(function (key, index) {
                       if (key.includes("_foto")) {
-                        return <SwiperSlide>
-                        <Image src={posts[key]} alt="" width={300} height={200} style={{
-                          width: '100%',
-                          height: '200px',
-                        }} />
-                        </SwiperSlide>
+                        return (
+                          <SwiperSlide>
+                            <Image
+                              src={posts[key]}
+                              alt=""
+                              width={300}
+                              height={200}
+                              style={{
+                                width: "100%",
+                                height: "200px",
+                              }}
+                            />
+                          </SwiperSlide>
+                        );
                       }
                     })}
                   </Swiper>
                 </div>
                 <hr></hr>
-                {markdownify(convertEpochDate(posts.date.epoch_time), "p", "text-center font-normal")}
+                {markdownify(
+                  convertEpochDate(posts.date.epoch_time),
+                  "p",
+                  "text-center font-normal"
+                )}
                 {markdownify(posts.title, "h5", "text-center font-normal")}
               </div>
               // <ImgContainer key={photo.id} photo={photo} />
             ))}
           </div>
-
         ) : (
           <Oval
             visible={true}
@@ -124,9 +142,9 @@ const Maknalogo = ({ data }) => {
             wrapperClass="text-center"
           />
         )}
-    </div>
+      </div>
     </section>
-  )
+  );
   // return (
   //   <section className="section">
   //     <div className="container">
