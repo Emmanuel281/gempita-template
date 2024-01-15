@@ -36,39 +36,30 @@ const Maknalogo = ({ data }) => {
 
   const convertEpochDate = (arrayindex) => {
     let epochDate = arrayindex;
+    const months = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+    var date = new Date(epochDate * 1000);
 
-    const epochInMilliseconds =
-      epochDate > 9999999999 ? epochDate : epochDate * 1000;
-    const date = new Date(epochInMilliseconds);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
 
-    const seconds = Math.floor((Date.now() - date) / 1000);
-
-    const interval = Math.floor(seconds / 31536000);
-    if (interval >= 1) {
-      return `${interval} tahun yang lalu`;
-    }
-
-    const intervalMonths = Math.floor(seconds / 2592000);
-    if (intervalMonths >= 1) {
-      return `${intervalMonths} bulan yang lalu`;
-    }
-
-    const intervalDays = Math.floor(seconds / 86400);
-    if (intervalDays >= 1) {
-      return `${intervalDays} hari yang lalu`;
-    }
-
-    const intervalHours = Math.floor(seconds / 3600);
-    if (intervalHours >= 1) {
-      return `${intervalHours} jam yang lalu`;
-    }
-
-    const intervalMinutes = Math.floor(seconds / 60);
-    if (intervalMinutes >= 1) {
-      return `${intervalMinutes} menit yang lalu`;
-    }
-
-    return `${seconds} detik${seconds === 1 ? "" : "s"} yang lalu`;
+    return day + " " + months[month - 1] + " " + year;
 
     // return date.toISOString();
   };
@@ -117,6 +108,22 @@ const Maknalogo = ({ data }) => {
                         );
                       }
                     })}
+                    {posts.hasOwnProperty("_foto0") ? (
+                      ""
+                    ) : (
+                      <SwiperSlide>
+                        <Image
+                          src={"/images/Mukadimah-530x356.jpg"}
+                          alt=""
+                          width={300}
+                          height={200}
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                          }}
+                        />
+                      </SwiperSlide>
+                    )}
                   </Swiper>
                 </div>
                 <hr></hr>
