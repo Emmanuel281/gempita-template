@@ -82,7 +82,11 @@ const Maknalogo = ({ data }) => {
         {Object.keys(post).length != 0 ? (
           <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {post.data.map((posts, index) => (
-              <div className="w-full rounded-md shadow">
+              <div className="w-full rounded-md shadow" onClick={() => {
+                setcurrentpost(posts);
+                setOpenModal(true);
+                // console.log(currentpost);
+                }}>
                 <div
                   className="swiper-container order-2"
                   style={{
@@ -142,8 +146,9 @@ const Maknalogo = ({ data }) => {
                   "p",
                   "text-center font-normal"
                 )}
-                {markdownify(posts.title, "h5", "text-center font-normal")}
-                <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
+                <h5 className="text-center font-normal" >{posts.title}</h5>
+                {/* {markdownify(posts.title, "h5", "text-center font-normal")} */}
+                {/* <Button onClick={() => setOpenModal(true)}>Toggle modal</Button> */}
               </div>
               // <ImgContainer key={photo.id} photo={photo} />
             ))}
@@ -162,29 +167,29 @@ const Maknalogo = ({ data }) => {
         )}
       </div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header theme={customTheme}>Terms of Service</Modal.Header>
+        <Modal.Header theme={customTheme}>{currentpost.title}</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new
-              consumer privacy laws for its citizens, companies around the world
-              are updating their terms of service agreements to comply.
-            </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.)
-              goes into effect on May 25 and is meant to ensure a common set of
-              data rights in the European Union. It requires organizations to
-              notify users as soon as possible of high-risk data breaches that
-              could personally affect them.
-            </p>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+          {Object.keys(currentpost).map(function (key, index) {
+                      if (key.includes("_foto")) {
+                        return (
+                            <Image
+                              src={currentpost[key]}
+                              alt=""
+                              width={300}
+                              height={200}
+                            />
+                        );
+                      }
+                    })}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button onClick={() => setOpenModal(false)}>I accept</Button>
           <Button color="gray" onClick={() => setOpenModal(false)}>
             Decline
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </section>
   );
