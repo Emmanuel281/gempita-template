@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import cbor from "cbor";
-import config from "@config/config.json";
-import image from "@config/image.json";
 import { markdownify } from "@lib/utils/textConverter";
 import Image from "next/image";
-import ImgContainer from "./ImgContainer";
 import { Oval } from "react-loader-spinner";
 const title = "Galeri";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import ModalImage from "react-modal-image";
 
 const customTheme = {
