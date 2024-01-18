@@ -25,6 +25,7 @@ const Maknalogo = () => {
   if (error) console.log(error)
   if (isLoading) console.log(isLoading)
   if (data) {
+    console.log(data)
     data = cbor.decode(data) 
   }
   
