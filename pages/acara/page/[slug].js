@@ -7,12 +7,13 @@ import Base from "@layouts/Baseof";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 import { Oval } from 'react-loader-spinner'
+import useSWR from 'swr'
+const fetcher = url => fetch(url).then(r => r.arrayBuffer())
 const { blog_folder, pagination } = config.settingsacara;
-export const revalidate = 10;
+
 // blog pagination
 const BlogPagination = () => {
   const router = useRouter();
-  const [contentapi, setContentapi] = useState({});
   const [totalPages, setTotalPages] = useState(1);
   const currentPage = parseInt((router.query && router.query.slug) || 1);
   let start = 1;
@@ -20,30 +21,38 @@ const BlogPagination = () => {
     start = (currentPage - 1) * pagination;
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/cbor",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.arrayBuffer();
-      const decoded = await cbor.decode(result);
-      setContentapi(decoded);
-      setTotalPages(Math.ceil(contentapi.data.length / pagination));
-    };
+  let { data, error, isLoading } = useSWR(`https://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`, fetcher)
+ 
+  if (error) console.log(error)
+  if (isLoading) console.log(isLoading)
+  if (data) {
+    data = cbor.decode(data) 
+  }
 
-    fetchData().catch((e) => {
-      console.error("An error occurred while fetching the data: ", e);
-    });
-  }, [router.query.slug]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       `https://adm.gempitamilenial.org/service/event-public?start=${start}&count=${pagination}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/cbor",
+  //         },
+  //       }
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const result = await response.arrayBuffer();
+  //     const decoded = await cbor.decode(result);
+  //     setContentapi(decoded);
+  //     setTotalPages(Math.ceil(data.data.length / pagination));
+  //   };
+
+  //   fetchData().catch((e) => {
+  //     console.error("An error occurred while fetching the data: ", e);
+  //   });
+  // }, [router.query.slug]);
 
   return (
     <Base title={"Acara Terbaru"}>
@@ -54,10 +63,10 @@ const BlogPagination = () => {
             "h1",
             "h1 text-center font-normal text-[56px]"
           )}
-          {Object.keys(contentapi).length != 0 ? (
+          { data !== undefined && Object.keys(data).length != 0 ? (
             <>
               <Posts
-                posts={contentapi.data}
+                posts={data.data}
                 currentPage={currentPage}
                 type="acara"
               />

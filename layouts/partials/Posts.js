@@ -178,10 +178,10 @@ const Posts = ({ posts, type, currentPage }) => {
               href={`/${type}/${currentPage}$${post.id}`}
               className="block hover:text-primary"
             >
-              {post.title
-                ? post.title
-                : post.channel_name
-                ? post.channel_name
+              {post.title?.slice(0, Number(summary_length)).concat("...")
+                ? post.title?.slice(0, Number(summary_length)).concat("...")
+                : post.channel_name?.slice(0, Number(summary_length)).concat("...")
+                ? post.channel_name?.slice(0, Number(summary_length)).concat("...")
                 : ""}
             </Link>
           </h2>

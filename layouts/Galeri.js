@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import cbor from "cbor";
 import { markdownify } from "@lib/utils/textConverter";
 import Image from "next/image";
@@ -7,7 +7,6 @@ const title = "Galeri";
 import { Modal } from "flowbite-react";
 import ModalImage from "react-modal-image";
 import useSWR from 'swr'
-// const fetcher = (...args) => fetch(...args).then(res => res.json())
 const fetcher = url => fetch(url).then(r => r.arrayBuffer())
 
 const customTheme = {
@@ -78,13 +77,13 @@ const Maknalogo = () => {
 
     // return date.toISOString();
   };
-
+  console.log(data)
   return (
     <section className="section">
       <div className="container">
         {markdownify(title, "h1", "text-center font-normal")}
         <br></br>
-        {Object.keys(data).length != 0 ? (
+        {data !== undefined && Object.keys(data).length != 0 ? (
           <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {data.data.map((posts, index) => (
               <div

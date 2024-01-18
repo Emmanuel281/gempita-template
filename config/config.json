@@ -12,12 +12,14 @@
   "settings": {
     "pagination": 8,
     "summary_length": 300,
+    "title_length": 90,
     "blog_folder": "blogs"
   },
 
   "settingsyoutube": {
     "pagination": 8,
     "summary_length": 300,
+    "title_length": 90,
     "blog_folder": "youtube",
     "title": "Video Terbaru",
     "description": "youtube"
@@ -26,12 +28,14 @@
   "settingsberita": {
     "pagination": 7,
     "summary_length": 300,
+    "title_length": 90,
     "blog_folder": "berita"
   },
 
   "settingsacara": {
     "pagination": 7,
     "summary_length": 300,
+    "title_length": 90,
     "blog_folder": "acara"
   },
 

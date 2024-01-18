@@ -5,7 +5,6 @@ import Image from "next/image";
 
 
 const PostAcara = ({ frontmatter, mdxContent }) => {
-  // console.log(frontmatter);
   let {
     description,
     title,

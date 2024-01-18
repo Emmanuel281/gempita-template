@@ -9,6 +9,8 @@ import Base from "@layouts/Baseof";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
 import { Oval } from 'react-loader-spinner'
+import useSWR from 'swr'
+const fetcher = url => fetch(url).then(r => r.arrayBuffer())
 
 const { blog_folder, pagination } = config.settingsberita;
 const title = "Berita Terbaru";
@@ -23,39 +25,48 @@ const mdxoptions = {
 const BlogPagination = () => {
   // const { frontmatter, content, contentapi } = postIndex;
   const router = useRouter();
-  const [contentapi, setContentapi] = useState({});
-  const totalPages = Math.ceil(contentapi.total_count / pagination);
+  // const [contentapi, setContentapi] = useState({});
+  let totalPages = 1
   const currentPage = parseInt((router.query && router.query.slug) || 1);
   let start = 1;
   if (currentPage > 1) {
     start = (currentPage - 1) * pagination;
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.arrayBuffer();
-      const decoded = await cbor.decode(result);
-      setContentapi(decoded);
-    };
-    fetchData().catch((e) => {
-      console.error("An error occurred while fetching the data: ", e);
-    });
-  }, [router.query.slug]);
+  let { data, error, isLoading } = useSWR(`https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`, fetcher)
+ 
+  if (error) console.log(error)
+  if (isLoading) console.log(isLoading)
+  if (data) {
+    data = cbor.decode(data) 
+    totalPages = Math.ceil(data.total_count / pagination);
+  }
+  // const totalPages = Math.ceil(data.total_count / pagination);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       `https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const result = await response.arrayBuffer();
+  //     const decoded = await cbor.decode(result);
+  //     setContentapi(decoded);
+  //   };
+  //   fetchData().catch((e) => {
+  //     console.error("An error occurred while fetching the data: ", e);
+  //   });
+  // }, [router.query.slug]);
 
   return (
     <Base title={title}>
       <section className="section">
         <div className="container">
           {markdownify(title, "h1", "h1 text-center font-normal text-[56px]")}
-          {Object.keys(contentapi).length != 0 ? (
+          {data !== undefined && Object.keys(data).length != 0 ? (
             <>
               <Posts
-                posts={contentapi.data}
+                posts={data.data}
                 currentPage={currentPage}
                 type="berita"
               />

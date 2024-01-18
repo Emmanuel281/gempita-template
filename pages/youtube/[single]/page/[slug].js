@@ -6,7 +6,8 @@ import PostYoutube from "@layouts/Postyoutube";
 import Base from "@layouts/Baseof";
 import { markdownify } from "@lib/utils/textConverter";
 import { Oval } from 'react-loader-spinner'
-
+import useSWR from 'swr'
+const fetcher = url => fetch(url).then(r => r.arrayBuffer())
 export const revalidate = 10;
 export const dynamic = "force-dynamic";
 const { blog_folder, pagination, title } = config.settingsyoutube;
@@ -17,52 +18,70 @@ let start = 1;
 const BlogPagination = () => {
   // const totalPages = Math.ceil(contentapi.data.length / pagination);
   const router = useRouter();
-  const [contentapi, setContentapi] = useState({});
-  const [post, setPost] = useState({});
-  const [posts, setPosts] = useState({});
+  // const [contentapi, setContentapi] = useState({});
+  // const [post, setPost] = useState({});
+  // const [posts, setPosts] = useState({});
+  let post = [];
   const currentPage = 1;
   single = router.query;
   if (single.slug) {
-    start = single.slug * pagination + 1;
+    start = (single.slug - 1) * (pagination + 1);
   }
-  useEffect(() => {
-    const fetchDataChanel = async () => {
-      const response = await fetch(
-        `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
-      );
-      if (!response.ok) {
-        throw new Error(`https error! status: ${response.status}`);
-      }
-      const result = await response.arrayBuffer();
-      const posts = await cbor.decode(result);
-      setContentapi(posts);
-    };
-    const fetchDataVideo = async () => {
-      // console.log(start);
-      const response = await fetch(
-        `https://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=${start}&count=${pagination}`
-      );
-      if (!response.ok) {
-        throw new Error(`https error! status: ${response.status}`);
-      }
-      const result = await response.arrayBuffer();
-      const posts = await cbor.decode(result);
-      const post = posts.data.filter((p) => p.parentID == single.single);
-      setPost(post);
-      setPosts(posts);
-    };
+  let { data : contentapi, error: error, isLoading : Loading } = useSWR(`https://adm.gempitamilenial.org/service/youtube-public?start=1&count=100`, fetcher)
+ 
+  if (error) console.log(error)
+  if (Loading) console.log(Loading)
+  if (contentapi) {
+    contentapi = cbor.decode(contentapi) 
+  }
+  let { data : posts, error : iserror, isLoading } = useSWR(`https://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=${start}&count=${pagination}`, fetcher)
+ 
+  if (iserror) console.log(error)
+  if (isLoading) console.log(isLoading)
+  if (posts) {
+    posts = cbor.decode(posts) 
+    post = posts.data.filter((p) => p.parentID == single.single);
+  }
+  // useEffect(() => {
+  //   const fetchDataChanel = async () => {
+  //     const response = await fetch(
+  //       `https://adm.gempitamilenial.org/service/youtube-public?start=1&count=20`
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`https error! status: ${response.status}`);
+  //     }
+  //     const result = await response.arrayBuffer();
+  //     const posts = await cbor.decode(result);
+  //     setContentapi(posts);
+  //   };
+  //   const fetchDataVideo = async () => {
+  //     // console.log(start);
+  //     const response = await fetch(
+  //       `https://adm.gempitamilenial.org/service/youtube-video-public/${single.single}?start=${start}&count=${pagination}`
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`https error! status: ${response.status}`);
+  //     }
+  //     const result = await response.arrayBuffer();
+  //     const posts = await cbor.decode(result);
+  //     const post = posts.data.filter((p) => p.parentID == single.single);
+  //     setPost(post);
+  //     setPosts(posts);
+  //   };
 
-      fetchDataChanel().catch((e) => {
-        console.error("An error occurred while fetching the data: ", e);
-      });
-      fetchDataVideo().catch((e) => {
-        console.error("An error occurred while fetching the data: ", e);
-      });
+  //     fetchDataChanel().catch((e) => {
+  //       console.error("An error occurred while fetching the data: ", e);
+  //     });
+  //     fetchDataVideo().catch((e) => {
+  //       console.error("An error occurred while fetching the data: ", e);
+  //     });
 
-  }, [router.query.slug]);
+  // }, [router.query.slug]);
   return (
     <Base title={title}>
-      {Object.keys(post).length != 0 && Object.keys(posts).length != 0 ? (
+      {post != undefined && posts != undefined && contentapi != undefined &&Object.keys(post).length != 0 &&
+      Object.keys(posts).length != 0 &&
+      Object.keys(contentapi).length != 0 ? (
         <PostYoutube
           title={title}
           post={post}

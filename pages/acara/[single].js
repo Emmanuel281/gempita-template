@@ -8,6 +8,8 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import Base from "@layouts/Baseof";
 import { Oval } from 'react-loader-spinner'
+import useSWR from 'swr'
+const fetcher = url => fetch(url).then(r => r.arrayBuffer())
 const { blog_folder, pagination } = config.settingsacara;
 export const revalidate = 10;
 let singles = {};
@@ -18,43 +20,62 @@ const mdxoptions = {
     remarkPlugins: [remarkGfm],
   },
 };
+// let mdxContent = []
 // post single layout
 const Article = () => {
-  const [post, setPost] = useState({});
+  // const [data, setPost] = useState([]);
   const [mdxContent, setmdxContent] = useState([]);
+  
   const router = useRouter();
   const single = router.query.single;
   if (single) {
     singles = single.split("$");
   }
+  const serial = async (desc) => {
+    return await serialize(desc, mdxoptions);
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  let { data, error, isLoading } = useSWR(`https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`, fetcher)
+ 
+  if (error) console.log(error)
+  if (isLoading) console.log(isLoading)
+  if (data) {
+    data = cbor.decode(data) 
+    data = data.data.filter((p) => p.id == singles[1]);
+    // mdxContent = serial(data[0].description);
+    serial(data[0].description).then((desc) => {
+      if (mdxContent.compiledSource !== desc.compiledSource) {
+        setmdxContent(desc)
       }
-      const result = await response.arrayBuffer();
-      const posts = await cbor.decode(result);
-      const post = posts.data.filter((p) => p.id == singles[1]);
-      const mdxContent = await serialize(post[0].description, mdxoptions);
-      setPost(post);
-      setmdxContent(mdxContent);
-    };
+    })
+  }
 
-      fetchData().catch((e) => {
-        console.error("An error occurred while fetching the data: ", e);
-      });
-  }, [router.query.single]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       `https://adm.gempitamilenial.org/service/event-public?start=${singles[0]}&count=${pagination}`
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const result = await response.arrayBuffer();
+  //     const posts = await cbor.decode(result);
+  //     const post = posts.data.filter((p) => p.id == singles[1]);
+  //     const mdxContent = await serialize(post[0].description, mdxoptions);
+  //     setPost(post);
+  //     setmdxContent(mdxContent);
+  //   };
 
+  //     fetchData().catch((e) => {
+  //       console.error("An error occurred while fetching the data: ", e);
+  //     });
+  // }, [router.query.single]);
   return( 
     <Base title={"acarasingle"}>
-    {Object.keys(post).length != 0 &&
-    Object.keys(mdxContent).length != 0 ? (
+    {data != undefined && Object.keys(data).length != 0
+    && Object.keys(mdxContent).length != 0 ? (
     <PostAcara
-      frontmatter={post[0]}
+      frontmatter={data[0]}
       mdxContent={mdxContent}
       slug={router.query.single}
     />
