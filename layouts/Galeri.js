@@ -4,11 +4,11 @@ import { markdownify } from "@lib/utils/textConverter";
 import Image from "next/image";
 import { Oval } from "react-loader-spinner";
 const title = "Galeri";
-import { Autoplay, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.min.css";
 import { Modal } from "flowbite-react";
 import ModalImage from "react-modal-image";
+import useSWR from 'swr'
+// const fetcher = (...args) => fetch(...args).then(res => res.json())
+const fetcher = url => fetch(url).then(r => r.arrayBuffer())
 
 const customTheme = {
   close: {
@@ -17,29 +17,36 @@ const customTheme = {
   },
 };
 
-const Maknalogo = ({ data }) => {
-  const [post, setPost] = useState({});
+const Maknalogo = () => {
   const [currentpost, setcurrentpost] = useState({});
   const [openModal, setOpenModal] = useState(false);
+  let { data, error, isLoading } = useSWR('https://adm.gempitamilenial.org/service/gallery-public?start=0&count=10', fetcher)
+ 
+  if (error) console.log(error)
+  if (isLoading) console.log(isLoading)
+  if (data) {
+    data = cbor.decode(data) 
+  }
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://adm.gempitamilenial.org/service/gallery-public?start=0&count=10`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.arrayBuffer();
-      const posts = await cbor.decode(result);
-      console.log(posts);
-      setPost(posts);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       `https://adm.gempitamilenial.org/service/gallery-public?start=0&count=10`
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const result = await response.arrayBuffer();
+  //     const posts = await cbor.decode(result);
+  //     console.log(posts);
+  //     setPost(posts);
+  //   };
 
-    fetchData().catch((e) => {
-      console.error("An error occurred while fetching the data: ", e);
-    });
-  }, []);
+  //   fetchData().catch((e) => {
+  //     console.error("An error occurred while fetching the data: ", e);
+  //   });
+  // }, []);
 
   const convertEpochDate = (arrayindex) => {
     let epochDate = arrayindex;
@@ -76,9 +83,9 @@ const Maknalogo = ({ data }) => {
       <div className="container">
         {markdownify(title, "h1", "text-center font-normal")}
         <br></br>
-        {Object.keys(post).length != 0 ? (
+        {Object.keys(data).length != 0 ? (
           <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {post.data.map((posts, index) => (
+            {data.data.map((posts, index) => (
               <div
                 className="w-full rounded-md shadow"
                 onClick={() => {
@@ -95,37 +102,18 @@ const Maknalogo = ({ data }) => {
                     overflow: "hidden",
                   }}
                 >
-                  <Swiper
-                    modules={[Autoplay, Pagination]}
-                    slidesPerView={1}
-                    autoplay={{
-                      delay: 2500,
-                      disableOnInteraction: false,
-                    }}
-                    pagination={{ clickable: true }}
-                  >
-                    {Object.keys(posts).map(function (key, index) {
-                      if (key.includes("_foto")) {
-                        return (
-                          <SwiperSlide>
-                            <Image
-                              src={posts[key]}
-                              alt=""
-                              width={300}
-                              height={200}
-                              style={{
-                                width: "100%",
-                                height: "200px",
-                              }}
-                            />
-                          </SwiperSlide>
-                        );
-                      }
-                    })}
-                    {posts.hasOwnProperty("_foto0") ? (
-                      ""
+                  {posts.hasOwnProperty("_foto0") ? (
+                      <Image
+                      src={posts["_foto0"]}
+                      alt=""
+                      width={300}
+                      height={200}
+                      style={{
+                        width: "100%",
+                        height: "200px",
+                      }}
+                    />
                     ) : (
-                      <SwiperSlide>
                         <Image
                           src={"/images/Mukadimah-530x356.jpg"}
                           alt=""
@@ -136,9 +124,7 @@ const Maknalogo = ({ data }) => {
                             height: "200px",
                           }}
                         />
-                      </SwiperSlide>
                     )}
-                  </Swiper>
                 </div>
                 <hr></hr>
                 {markdownify(

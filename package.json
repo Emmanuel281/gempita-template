@@ -30,7 +30,8 @@
     "react-modal-image": "^2.6.0",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
-    "swiper": "^8.4.5"
+    "swiper": "^8.4.5",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
