@@ -12,6 +12,7 @@ import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import { Button, Modal } from "flowbite-react";
+import ModalImage from "react-modal-image";
 
 const customTheme = {
   close: {
@@ -82,11 +83,14 @@ const Maknalogo = ({ data }) => {
         {Object.keys(post).length != 0 ? (
           <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {post.data.map((posts, index) => (
-              <div className="w-full rounded-md shadow" onClick={() => {
-                setcurrentpost(posts);
-                setOpenModal(true);
-                // console.log(currentpost);
-                }}>
+              <div
+                className="w-full rounded-md shadow"
+                onClick={() => {
+                  setcurrentpost(posts);
+                  setOpenModal(true);
+                  // console.log(currentpost);
+                }}
+              >
                 <div
                   className="swiper-container order-2"
                   style={{
@@ -146,7 +150,7 @@ const Maknalogo = ({ data }) => {
                   "p",
                   "text-center font-normal"
                 )}
-                <h5 className="text-center font-normal" >{posts.title}</h5>
+                <h5 className="text-center font-normal">{posts.title}</h5>
                 {/* {markdownify(posts.title, "h5", "text-center font-normal")} */}
                 {/* <Button onClick={() => setOpenModal(true)}>Toggle modal</Button> */}
               </div>
@@ -169,19 +173,24 @@ const Maknalogo = ({ data }) => {
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header theme={customTheme}>{currentpost.title}</Modal.Header>
         <Modal.Body>
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
-          {Object.keys(currentpost).map(function (key, index) {
-                      if (key.includes("_foto")) {
-                        return (
-                            <Image
-                              src={currentpost[key]}
-                              alt=""
-                              width={300}
-                              height={200}
-                            />
-                        );
-                      }
-                    })}
+          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+            {Object.keys(currentpost).map(function (key, index) {
+              if (key.includes("_foto")) {
+                return (
+                  <ModalImage
+                    small={currentpost[key]}
+                    large={currentpost[key]}
+                    alt={currentpost.title}
+                  />
+                  // <Image
+                  //   src={currentpost[key]}
+                  //   alt=""
+                  //   width={300}
+                  //   height={200}
+                  // />
+                );
+              }
+            })}
           </div>
         </Modal.Body>
         {/* <Modal.Footer>
