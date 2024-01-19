@@ -157,7 +157,7 @@ const Posts = ({ posts, type, currentPage }) => {
           ) : post.img != "" ? (
             <Image
               className="h-auto w-full rounded-lg"
-              src={post.img}
+              src={post.img >= 1 ? posts.img : "/images/Mukadimah-530x356.jpg"}
               alt={"/images/blog-1.jpg"}
               width={540}
               height={227}
@@ -180,8 +180,12 @@ const Posts = ({ posts, type, currentPage }) => {
             >
               {post.title?.slice(0, Number(summary_length)).concat("...")
                 ? post.title?.slice(0, Number(summary_length)).concat("...")
-                : post.channel_name?.slice(0, Number(summary_length)).concat("...")
-                ? post.channel_name?.slice(0, Number(summary_length)).concat("...")
+                : post.channel_name
+                    ?.slice(0, Number(summary_length))
+                    .concat("...")
+                ? post.channel_name
+                    ?.slice(0, Number(summary_length))
+                    .concat("...")
                 : ""}
             </Link>
           </h2>
