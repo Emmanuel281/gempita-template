@@ -54,7 +54,6 @@ const PostAcara = ({ frontmatter, mdxContent }) => {
               {markdownify(title, "h1", "h2 mb-6 mt-6 text-left")}
               <p className="mb-2" style={{ fontSize: "1 rem" }}></p>
               <div className="content mb-16 text-left">
-                <MDXRemote {...mdxContent} components={shortcodes} />
                 <table>
                   <tr>
                     <td>Waktu</td>
@@ -77,6 +76,7 @@ const PostAcara = ({ frontmatter, mdxContent }) => {
                     <td>{place}</td>
                   </tr>
                 </table>
+                <MDXRemote {...mdxContent} components={shortcodes} />
               </div>
             </article>
           </div>
