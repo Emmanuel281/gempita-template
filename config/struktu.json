@@ -12,6 +12,14 @@
       ]
     },
     {
+      "title": "SEKJEN (Fadly Abdurachmansyah.ST)",
+      "people": [
+        "Wasekjen Bidang Hukum (Sunarso & Fadil Alfanani)",
+        "Wasekjen Bidang Hubungan Masyarakat (Willy & Juson Simbolon)",
+        "Wasekjen Bidang Hubungan Antarlembaga ( Zahra & Ferra Julianti)"
+      ]
+    },
+    {
       "title": "BENDAHARA UMUM (Belina)",
       "people": [
         "Wabendum Bidang Akuntansi dan Perpajakan (Adinda)",
@@ -21,7 +29,7 @@
     {
       "title": "DIREKTUR ORGANISASI KADERISASI KEANGGOTAAN (OKK) (Andre Pianaung)",
       "people": [
-        "Bidang Organisasi Inti (Kevin)",
+        "Bidang Organisasi Inti (Ricki Aridiyawan & KKevin)",
         "Bidang Organisasi Sayap (Irfan)",
         "Bidang Kaderisasi (Troy)",
         "Bidang Keanggotaan (Firstia)",
@@ -32,17 +40,21 @@
       "title": "DIREKTUR RENSTRA (M.Ikbal)",
       "people": [
         "Bidang Perencanaan Program (Eniedwilfridus)",
-        "Bidang Pendidikan dan Latihan",
+        "Bidang Pendidikan dan Latihan (Daniel Amaya)",
         "Bidang Monitoring dan Evaluasi (Raja)"
       ]
     },
     {
       "title": "DIREKTUR IT DAN PUSAT DATA (Sri Widodo)",
       "people": [
-        "Bidang Perencanaan, Pengelolaan, dan Pemeliharaan IT ( Abdi & Dimas)",
+        "Bidang Perencanaan, Pengelolaan, dan Pemeliharaan IT",
         "Bidang Server dan Database Organisasi",
         "Bidang Pengelolaan Website dan Aplikasi"
       ]
+    },
+    {
+      "title": "DIREKTUR BIDANG TERITORIAL (Nia Carolin)",
+      "people": []
     }
   ]
 }
