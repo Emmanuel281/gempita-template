@@ -47,6 +47,8 @@ const App = ({ Component, pageProps }) => {
             __html: `${fontcss}`,
           }}
         />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7318008351867392"
+     crossorigin="anonymous"></script>
         {/* responsive meta */}
         <meta
           name="viewport"
