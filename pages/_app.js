@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import TagManager from "react-gtm-module";
 import "styles/style.scss";
+import Script from 'next/script'
 
 const App = ({ Component, pageProps }) => {
   // default theme setup
@@ -47,14 +48,19 @@ const App = ({ Component, pageProps }) => {
             __html: `${fontcss}`,
           }}
         />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7318008351867392"
-     crossorigin="anonymous"></script>
+        
         {/* responsive meta */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
       </Head>
+      <Script id="adsbygoogle-init"
+          strategy="beforeInteractive"
+          crossOrigin="anonymous" 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7318008351867392"
+          onLoad={() => console.log('hey')}
+     />
       <Component {...pageProps} />
     </>
   );
