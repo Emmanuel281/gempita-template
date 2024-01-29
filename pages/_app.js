@@ -4,10 +4,11 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import TagManager from "react-gtm-module";
 import "styles/style.scss";
-import Script from 'next/script'
+import Script from "next/script";
 
 const App = ({ Component, pageProps }) => {
   // default theme setup
+  //
 
   // import google font css
   const pf = theme.fonts.font_family.primary;
@@ -48,19 +49,38 @@ const App = ({ Component, pageProps }) => {
             __html: `${fontcss}`,
           }}
         />
-        
+
         {/* responsive meta */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
       </Head>
-      <Script id="adsbygoogle-init"
-          strategy="beforeInteractive"
-          crossOrigin="anonymous" 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7318008351867392"
-          onLoad={() => console.log('hey')}
-     />
+      <Script
+        id="adsbygoogle-init"
+        strategy="beforeInteractive"
+        crossOrigin="anonymous"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7318008351867392"
+        onLoad={() => console.log("adsbygoogle-init")}
+      />
+      <Script
+        id="analyticbygoogle-init"
+        strategy="beforeInteractive"
+        crossOrigin="anonymous"
+        src="https://www.googletagmanager.com/gtag/js?id=G-SB7NJ7M63B"
+        onLoad={() => console.log("analyticbygoogle-init")}
+      />
+      <Script strategy="lazyOnload">
+        {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                      dataLayer.push(arguments);
+                    }
+                    gtag("js", new Date());
+                  
+                    gtag("config", "G-SB7NJ7M63B");
+                `}
+      </Script>
       <Component {...pageProps} />
     </>
   );
