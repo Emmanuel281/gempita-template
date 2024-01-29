@@ -70,7 +70,7 @@ const App = ({ Component, pageProps }) => {
         src="https://www.googletagmanager.com/gtag/js?id=G-SB7NJ7M63B"
         onLoad={() => console.log("analyticbygoogle-init")}
       />
-      <Script strategy="lazyOnload">
+      <Script id="analynictbygoogle-code-init" strategy="lazyOnload">
         {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag() {
