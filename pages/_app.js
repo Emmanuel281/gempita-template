@@ -70,7 +70,7 @@ const App = ({ Component, pageProps }) => {
         src="https://www.googletagmanager.com/gtag/js?id=G-SB7NJ7M63B"
         onLoad={() => console.log("analyticbygoogle-init")}
       />
-      <Script id="analynictbygoogle-code-init" strategy="lazyOnload">
+      <Script id="analynictbygoogle-code-init" strategy="beforeInteractive">
         {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag() {
@@ -80,6 +80,13 @@ const App = ({ Component, pageProps }) => {
                   
                     gtag("config", "G-SB7NJ7M63B");
                 `}
+      </Script>
+      <Script id="tagmanager-code-init" strategy="beforeInteractive">
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5L3Z66MN');`}
       </Script>
       <Component {...pageProps} />
     </>

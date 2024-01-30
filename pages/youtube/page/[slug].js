@@ -20,15 +20,17 @@ const BlogPagination = () => {
       const result = await response.arrayBuffer();
       const posts = await cbor.decode(result);
       posts.data.map((item, index) => {
-        if ((item.channel_name = "GEMPITA MILENIAL")) {
+        // console.log(item.channel_name);
+        if (item.channel_name === "GEMPITA MILENIAL") {
+          // console.log(item.channel_name);
           router.push("/youtube/" + item.id);
         }
       });
     };
 
-      fetchDataChanel().catch((e) => {
-        console.error("An error occurred while fetching the data: ", e);
-      });
+    fetchDataChanel().catch((e) => {
+      console.error("An error occurred while fetching the data: ", e);
+    });
   }, [router.pathname]);
 
   return (
