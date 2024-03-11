@@ -8,9 +8,9 @@ import config from "@config/config.json";
 import Base from "@layouts/Baseof";
 import { markdownify } from "@lib/utils/textConverter";
 import Posts from "@partials/Posts";
-import { Oval } from 'react-loader-spinner'
-import useSWR from 'swr'
-const fetcher = url => fetch(url).then(r => r.arrayBuffer())
+import { Oval } from "react-loader-spinner";
+import useSWR from "swr";
+const fetcher = (url) => fetch(url).then((r) => r.arrayBuffer());
 
 const { blog_folder, pagination } = config.settingsberita;
 const title = "Berita Terbaru";
@@ -26,18 +26,25 @@ const BlogPagination = () => {
   // const { frontmatter, content, contentapi } = postIndex;
   const router = useRouter();
   // const [contentapi, setContentapi] = useState({});
-  let totalPages = 1
+  let totalPages = 1;
   const currentPage = parseInt((router.query && router.query.slug) || 1);
   let start = 1;
   if (currentPage > 1) {
     start = (currentPage - 1) * pagination;
   }
-  let { data, error, isLoading } = useSWR(`https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`, fetcher)
- 
-  if (error) console.log(error)
-  if (isLoading) console.log(isLoading)
+  let { data, error, isLoading } = useSWR(
+    `https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`,
+    fetcher
+  );
+
+  if (error) console.log(error);
+  if (isLoading) console.log(isLoading);
   if (data) {
-    data = cbor.decode(data) 
+    console.log(
+      `https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`
+    );
+    data = cbor.decode(data);
+    console.log(data);
     totalPages = Math.ceil(data.total_count / pagination);
   }
   // const totalPages = Math.ceil(data.total_count / pagination);
@@ -78,15 +85,15 @@ const BlogPagination = () => {
             </>
           ) : (
             <Oval
-  visible={true}
-  height="50"
-  width="50"
-  color="#e00000"
-  secondaryColor="#808080"
-  ariaLabel="oval-loading"
-  wrapperStyle={{}}
-  wrapperClass="text-center"
-  />
+              visible={true}
+              height="50"
+              width="50"
+              color="#e00000"
+              secondaryColor="#808080"
+              ariaLabel="oval-loading"
+              wrapperStyle={{}}
+              wrapperClass="text-center"
+            />
           )}
         </div>
       </section>

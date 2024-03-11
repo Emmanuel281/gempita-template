@@ -6,12 +6,12 @@ import remarkGfm from "remark-gfm";
 import config from "@config/config.json";
 import PostSingle from "@layouts/PostSingle";
 import { serialize } from "next-mdx-remote/serialize";
-import { Oval } from 'react-loader-spinner'
+import { Oval } from "react-loader-spinner";
 import Base from "@layouts/Baseof";
-import useSWR from 'swr'
-const fetcher = url => fetch(url).then(r => r.arrayBuffer())
+import useSWR from "swr";
+const fetcher = (url) => fetch(url).then((r) => r.arrayBuffer());
 
-const { blog_folder, pagination } = config.settingsberita;
+let { blog_folder, pagination } = config.settingsberita;
 let singles = {};
 const mdxoptions = {
   mdxOptions: {
@@ -20,31 +20,43 @@ const mdxoptions = {
     remarkPlugins: [remarkGfm],
   },
 };
+
 // post single layout
 const Article = () => {
   // const [post, setPost] = useState({});
   const [mdxContent, setmdxContent] = useState([]);
   const router = useRouter();
   const single = router.query.single;
+  let start = 1;
   if (single) {
     singles = single.split("$");
+    start = (singles[0] - 1) * pagination;
+    // pagination = pagination * singles[0];
   }
   const serial = async (desc) => {
     return await serialize(desc, mdxoptions);
-  }
+  };
 
-  let { data, error, isLoading } = useSWR(`https://adm.gempitamilenial.org/service/news-public?start=${singles[0]}&count=${pagination}`, fetcher)
- 
-  if (error) console.log(error)
-  if (isLoading) console.log(isLoading)
+  let { data, error, isLoading } = useSWR(
+    `https://adm.gempitamilenial.org/service/news-public?start=${start}&count=${pagination}`,
+    fetcher
+  );
+
+  if (error) console.log(error);
+  if (isLoading) console.log(isLoading);
   if (data) {
-    data = cbor.decode(data) 
-      data = data.data.filter((p) => p.id == singles[1]);
-      serial(data[0].description).then((desc) => {
-        if (mdxContent.compiledSource !== desc.compiledSource) {
-          setmdxContent(desc)
-        }
-      })
+    console.log(
+      `https://adm.gempitamilenial.org/service/news-public?start=${singles[0]}&count=${pagination}`
+    );
+    data = cbor.decode(data);
+    console.log(data);
+    data = data.data.filter((p) => p.id == singles[1]);
+    console.log(data);
+    serial(data[0].description).then((desc) => {
+      if (mdxContent.compiledSource !== desc.compiledSource) {
+        setmdxContent(desc);
+      }
+    });
   }
 
   // useEffect(() => {
@@ -69,27 +81,28 @@ const Article = () => {
   // }, [router.query.single]);
   return (
     <Base title={"berita"}>
-    {data != undefined && Object.keys(data).length != 0 &&
-  Object.keys(mdxContent).length != 0 ? (
-    <PostSingle
-    frontmatter={data[0]}
-    mdxContent={mdxContent}
-    slug={singles[0]}
-  />
-) : (
-  <Oval
-  visible={true}
-  height="50"
-  width="50"
-  color="#e00000"
-  secondaryColor="#808080"
-  ariaLabel="oval-loading"
-  wrapperStyle={{}}
-  wrapperClass="text-center"
-  />
-)}
-
-</Base>)
+      {data != undefined &&
+      Object.keys(data).length != 0 &&
+      Object.keys(mdxContent).length != 0 ? (
+        <PostSingle
+          frontmatter={data[0]}
+          mdxContent={mdxContent}
+          slug={singles[0]}
+        />
+      ) : (
+        <Oval
+          visible={true}
+          height="50"
+          width="50"
+          color="#e00000"
+          secondaryColor="#808080"
+          ariaLabel="oval-loading"
+          wrapperStyle={{}}
+          wrapperClass="text-center"
+        />
+      )}
+    </Base>
+  );
 };
 
 // get post single slug
