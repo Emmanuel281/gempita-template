@@ -1,3 +1,4 @@
+"use client";
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
 import Cta from "@layouts/components/Cta";
@@ -12,34 +13,53 @@ import BlogPagination, {
   getStaticProps as getStaticPropsBlog,
 } from "./berita/page/[slug]";
 
+import { CountUp } from "countup.js";
+import { useEffect } from "react";
+
 const Home = ({ frontmatter }) => {
   const { banner, feature, services, workflow, call_to_action } = frontmatter;
   const { title } = config.site;
+  useEffect(() => {
+    const options = {
+      duration: 3,
+    };
+    const count = new CountUp("countAngota", 737954, options);
+
+    if (count.error) {
+      console.error(error);
+    } else {
+      count.start();
+    }
+  }, []);
 
   return (
     <Base title={title}>
       {/* Banner */}
-      <section
-        className="section pb-[20px] pt-[20px]"
-      >
+      <section className="section pb-[20px] pt-[20px]">
         <Swiper
-                    modules={[Autoplay, Pagination]}
-                    pagination={
-                      banner.images.length > 1 ? { clickable: true } : false
-                    }
-                    autoplay={{
-                      delay: 5000,
-                      disableOnInteraction: false,
-                    }}
-                    init={banner?.images > 1 ? false : true}
-                  >
-                    {/* Slides */}
-                    {banner?.images.map((slide, index) => (
-                      <SwiperSlide key={index}>
-                        <Image src={slide} alt="" width={2000} height={600} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+          modules={[Autoplay, Pagination]}
+          pagination={banner.images.length > 1 ? { clickable: true } : false}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          init={banner?.images > 1 ? false : true}
+        >
+          {/* Slides */}
+          {banner?.images.map((slide, index) => (
+            <SwiperSlide key={index}>
+              <Image src={slide} alt="" width={2000} height={600} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
+      {/* count */}
+      <section key={`service`} className={`section`}>
+        <div className="container grid justify-items-center">
+          <h1 id="countAngota" style={{ fontSize: "4rem" }}></h1>
+          <br />
+          <h6>Anggota yang sudah begabung dengan kita.</h6>
+        </div>
       </section>
       {/* Features */}
       {/* <section className="section bg-theme-light">

@@ -14,6 +14,7 @@
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
     "cbor": "^9.0.1",
+    "countup.js": "^2.8.0",
     "flowbite": "^2.2.0",
     "flowbite-react": "^0.7.2",
     "github-slugger": "^2.0.0",
